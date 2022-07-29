@@ -1,0 +1,16 @@
+.DS_Store
+node_modules
+static/image/products/*
+!static/image/products/.gitkeep
+static/image/banner/*
+!static/image/banner/.gitkeep
+static/image/slider/*
+!static/image/slider/.gitkeep
+static/image/gallery/*
+!static/image/gallery/.gitkeep
+/build
+/.svelte-kit
+/package
+.env
+.env.*
+!.env.example
