@@ -9,6 +9,8 @@ export const loading: Writable<boolean> = writable(false);
 export const message: Writable<string> = writable('');
 export const currentPage: Writable<number> = writable(1);
 export const totalPages: Writable<number> = writable(0);
+export const totalRecords: Writable<number> = writable(0);
+export const totalRecordsRequest: Writable<number> = writable(0);
 export const textToSearch: Writable<string | null> = writable(null);
 export const groupToSearch: Writable<string | null> = writable(null);
 export const currentGroupName: Writable<string | null> = writable(null);
@@ -126,4 +128,14 @@ export function getProductInCart(product: Product) {
     return undefined;
 }
 
+export const pf_lp: Writable<string | null> = writable(getLPSessionStorage());
+pf_lp.subscribe((val) => {
+    if (browser) return (sessionStorage.pf_lp = val);
+});
 
+function getLPSessionStorage() {
+    if (browser) {
+        return sessionStorage.getItem('pf_lp') ? sessionStorage.getItem('pf_lp') : null;
+    }
+    return null;
+}

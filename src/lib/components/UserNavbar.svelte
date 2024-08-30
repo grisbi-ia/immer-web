@@ -1,5 +1,5 @@
 <script>
-	import { currentUser, token } from "$lib/stores/store";
+	import { currentUser, token, pf_lp } from "$lib/stores/store";
 	import { getUserFromToken, isValidToken } from "$lib/util/util";
 	import { createEventDispatcher } from "svelte";
 
@@ -28,6 +28,7 @@
 
 		if (isAuth) {
 			$token = null;
+			$pf_lp = null;
 			$currentUser = null;
 			hideLoginForm();
 			if (error) error = "";

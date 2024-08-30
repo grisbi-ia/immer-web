@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { showAlert } from "$lib/util/util";
+	import { searchProducts, showAlert } from "$lib/util/util";
 	import { login } from "$lib/util/util";
 	let credentials: Credentials = {
 		username: "",
@@ -9,9 +9,10 @@
 
 	async function loginApp() {
 		const m = await login(credentials);
-		if (m === "OK")
+		if (m === "OK") {
 			showAlert("success", "Login", "Inicio de sesión exitosa.");
-		else showAlert("error", "Error", m);
+			searchProducts(false);
+		} else showAlert("error", "Error", m);
 	}
 </script>
 

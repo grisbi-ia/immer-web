@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
-	import { login } from "$lib/util/util";
+	import { login, searchProducts } from "$lib/util/util";
 	import { showAlert } from "$lib/util/util";
 
 	const dispatch = createEventDispatcher();
@@ -23,6 +23,7 @@
 		if (m === "OK") {
 			hideLoginForm();
 			showAlert("success", "Login", "Inicio de sesión exitosa.");
+			searchProducts(false);
 		} else {
 			error = m;
 			showAlert("error", "Error", m);

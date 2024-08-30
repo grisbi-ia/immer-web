@@ -9,6 +9,9 @@ import {
     token,
     loading,
     message,
+    totalRecords,
+    totalRecordsRequest,
+    pf_lp,
 } from "$lib/stores/store";
 import { get } from 'svelte/store';
 import type { ToastType } from 'svelte-toasts/types/common';
@@ -70,7 +73,9 @@ export async function searchProducts(moreData: boolean) {
     loading.set(true)
     message.set('')
     let discount = 0;
+    let priceList = decryptLP(get(pf_lp) ?? "");
     const user = get(currentUser);
+
     if (user && user.person.discountRate > 0) {
         discount = user.person.discountRate;
     }
@@ -78,7 +83,7 @@ export async function searchProducts(moreData: boolean) {
     if (!moreData) {
         currentPage.set(1);
         totalPages.set(0);
-        data.set(null);
+        data.set([]);
     }
 
     const responseFetch = await fetch("/api/shop/products", {
@@ -88,21 +93,22 @@ export async function searchProducts(moreData: boolean) {
             textToSearch: get(textToSearch),
             groupToSearch: get(groupToSearch),
             discount: discount,
+            priceList: priceList
         }),
     });
     const responseProduct = await responseFetch.json();
     if (moreData) {
         const newData = await responseProduct.objectList;
         data.set([...get(data), ...newData]);
-        loading.set(false);
-        message.set(responseProduct.message)
     }
     else {
         data.set(await responseProduct.objectList);
-        totalPages.set(await responseProduct.lastPage);
-        loading.set(false);
-        message.set(responseProduct.message)
     }
+    totalPages.set(await responseProduct.lastPage);
+    totalRecords.set(await responseProduct.totalRecords)
+    totalRecordsRequest.set(await responseProduct.totalRecordsRequest)
+    loading.set(false);
+    message.set(responseProduct.message)
 
 }
 
@@ -126,6 +132,8 @@ export async function login(credentials: Credentials) {
                 const responseUJson = await responseU.json();
                 const u = await responseUJson.objectList[0];
                 currentUser.set(u);
+                let priceList = encryptLP(u.person.priceListId ?? "");
+                pf_lp.set(priceList);
                 return 'OK';
             }
         } else {
@@ -152,6 +160,27 @@ export async function reloadUserFromToken() {
         const responseUJson = await responseU.json();
         const u = await responseUJson.objectList[0];
         currentUser.set(u);
+        let priceList = encryptLP(u.person.priceListId ?? "");
+        pf_lp.set(priceList);
     }
 
+}
+
+function encryptLP(lp: string) {
+    return generateRandomString(10) + lp;
+}
+function decryptLP(encryptLP: string) {
+    return encryptLP.substring(encryptLP.length - 1)
+}
+
+function generateRandomString(length: number): string {
+    let result = '';
+    const characters: string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const charactersArray = characters.split('');
+
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * charactersArray.length);
+        result += charactersArray[randomIndex];
+    }
+    return result;
 }

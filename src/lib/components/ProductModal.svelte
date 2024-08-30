@@ -38,7 +38,7 @@
 			showAlert(
 				"error",
 				"Error",
-				"La cantidad a comprar es mayor al stock actual"
+				"La cantidad a comprar es mayor al stock actual",
 			);
 		} else {
 			product.availibilityCountInCart = addProduct(product, quantity);
@@ -59,6 +59,7 @@
 	}
 
 	const handleImgError = (ev) => (ev.target.src = "image/product.png");
+	const handleImgBrandError = (ev) => (ev.target.src = "image/no-brand.png");
 </script>
 
 {#if isOpen}
@@ -66,6 +67,14 @@
 		<div class="contents">
 			<h3 class="close" on:click={closeAppModal}>x</h3>
 			<main>
+				<div style="padding-bottom: 2rem; padding-top: 2px;">
+					<img
+						style="width: auto; height: 4rem;"
+						src={`image/brand/${product.brandName}.png`}
+						alt="Marca"
+						on:error={handleImgBrandError}
+					/>
+				</div>
 				<img
 					src={`image/products/${product.id}.png`}
 					alt=""

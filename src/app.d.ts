@@ -130,7 +130,8 @@ type Person = {
 	sharedAccounts: SharedAccount[],
 	addresses: PersonAddress[],
 	phones: PersonPhone[],
-	salesExecutive: string
+	salesExecutive: string,
+	priceListId: string
 }
 
 type Password = {
@@ -167,8 +168,9 @@ type Product = {
 	brandId: string;
 	brandName: string;
 	allowsNegativeStock: boolean;
-	countryId: string,
-	countryName: string
+	countryId: string;
+	countryName: string;
+	taxPercentage: number;
 };
 
 type Group = {

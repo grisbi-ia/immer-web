@@ -1,5 +1,17 @@
 # Changelog
 
+## Version [2.1] - 2024-08-29
+### New features (Nuevo)
+### Improvements (Mejoras)
+- Búsqueda de items con Go Api
+- Eliminación de descuentos por persona
+- Uso de Listas de precios por persona
+- Botón de cargar más en el listado de items
+- Se muestra en el listado la cantidad de items por pantalla y las páginas recorrer
+- Mejora visual en la barra lateral izquierda, sección categorías
+### Bug fixes (Corección de Errores)
+### Tasks
+
 ## Version [2.0] - 2022-09-20
 ### New features (Nuevo)
 - Migración a nuevo SvelteKit
@@ -12,7 +24,7 @@
 ### Improvements (Mejoras)
 - Se visualiza y se trabaja con los precios ya aplicado el descuento de la persona y el precio inicial.
 - Se visualiza el porcentaje de descuento.
-- La sección de búsqueda, se ambia al Sidebar izquierdo
+- La sección de búsqueda, se cambia al Sidebar izquierdo
 ### Bug fixes (Corección de Errores)
 ### Tasks
 

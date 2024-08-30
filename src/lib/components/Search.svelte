@@ -1,5 +1,9 @@
 <script lang="ts">
-	import { textToSearch } from "$lib/stores/store";
+	import {
+		currentGroupName,
+		groupToSearch,
+		textToSearch,
+	} from "$lib/stores/store";
 	import { page } from "$app/stores";
 	import { goto } from "$app/navigation";
 	import { animateScroll } from "svelte-scrollto-element";
@@ -8,6 +12,8 @@
 	function search() {
 		if ($page.url.pathname != "/shop") goto("/shop");
 		animateScroll.scrollToTop();
+		groupToSearch.set("");
+		currentGroupName.set("");
 		searchProducts(false);
 	}
 

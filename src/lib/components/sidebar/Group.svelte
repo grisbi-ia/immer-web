@@ -20,9 +20,10 @@
 	}
 
 	function toggle() {
-		expanded = true;
+		expanded = !expanded;
 		$groupToSearch = id;
 		if (id === "null") {
+			expanded = true;
 			groupToSearch.set("");
 			currentGroupName.set("");
 			search();
@@ -37,7 +38,9 @@
 <span class:expanded on:click={toggle}>{name}</span>
 
 {#if expanded}
-	<colapse on:click={colapse}>🡩</colapse>
+	{#if id != "null"}
+		<colapse on:click={colapse}>🡩</colapse>
+	{/if}
 	<ul>
 		{#each groups as group}
 			<li>

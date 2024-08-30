@@ -23,7 +23,7 @@
 			$cartProducts = $cartProducts;
 		} else {
 			$cartProducts = $cartProducts.filter(
-				(cartItem) => cartItem != product
+				(cartItem) => cartItem != product,
 			);
 		}
 		return;
@@ -34,7 +34,7 @@
 			showAlert(
 				"error",
 				"Error",
-				"La cantidad a comprar es mayor al stock actual"
+				"La cantidad a comprar es mayor al stock actual",
 			);
 			return;
 		}
@@ -72,7 +72,7 @@
 				showAlert(
 					"error",
 					"Error",
-					"La cantidad a comprar es mayor al stock actual"
+					"La cantidad a comprar es mayor al stock actual",
 				);
 				return;
 			}
@@ -82,25 +82,23 @@
 
 	$: total = $cartProducts.reduce(
 		(sum, item) => sum + item.newPrice * item.availibilityCountInCart,
-		0
+		0,
 	);
 
-	$: subtotal = $cartProducts.reduce(
-		(sum, item) => sum + item.oldPrice * item.availibilityCountInCart,
-		0
-	);
+	$: subtotal = total / 1.15;
+
+	$: tax = total - subtotal;
 
 	$: discount = $cartProducts.reduce(
 		(sum, item) =>
 			sum +
 			(item.newPrice * item.availibilityCountInCart -
 				item.oldPrice * item.availibilityCountInCart),
-		0
+		0,
 	);
 
-	let fallback = "image/product.png";
-	const handleImgError = (ev: { target: { src: string } }) =>
-		(ev.target.src = fallback);
+	const handleImgError = (ev) => (ev.target.src = "image/product.png");
+	const handleImgBrandError = (ev) => (ev.target.src = "image/no-brand.png");
 </script>
 
 <Header />
@@ -126,9 +124,12 @@
 						<div>
 							<h1>Imágen</h1>
 						</div>
+						<div>
+							<h1>Marca</h1>
+						</div>
 						<div><h1>Nombre</h1></div>
 						<div>
-							<h1>Precio</h1>
+							<h1>Precio Final</h1>
 							<h1>Unitario</h1>
 						</div>
 						<div><h1>Cantidad</h1></div>
@@ -145,6 +146,14 @@
 									src={`image/products/${item.id}.png`}
 									alt=""
 									on:error={handleImgError}
+								/>
+							</div>
+							<div>
+								<img
+									width="50"
+									src={`image/brand/${item.brandName}.png`}
+									alt="Marca"
+									on:error={handleImgBrandError}
 								/>
 							</div>
 							<p>{item.name}</p>
@@ -191,11 +200,7 @@
 				<br />
 				<div class="total">
 					<h2>Subtotal: $ {subtotal.toFixed(2)}</h2>
-					<h2>
-						Descuento ({$currentUser.person.discountRate}%) : $ {discount.toFixed(
-							2
-						)}
-					</h2>
+					<h2>Impuestos : $ {tax.toFixed(2)}</h2>
 					<h2>TOTAL: $ {total.toFixed(2)}</h2>
 					<p>(Valores incluyen impuestos)</p>
 					<a href={"/shop"} class="btn">Seguir comprando</a>
@@ -217,7 +222,7 @@
 <style>
 	.cart-item {
 		display: grid;
-		grid-template-columns: repeat(5, 1fr);
+		grid-template-columns: repeat(6, 1fr);
 		align-items: center;
 		text-align: center;
 		border: 1px solid;

@@ -11,11 +11,13 @@
 		currentPage,
 		textToSearch,
 		totalPages,
+		totalRecords,
 		groups,
 		//subgroups,
 		currentUser,
 		loading,
 		currentGroupName,
+		groupToSearch,
 		//message,
 		//selectedValue1,
 	} from "$lib/stores/store";
@@ -55,6 +57,8 @@
 
 	function search() {
 		animateScroll.scrollToTop();
+		groupToSearch.set("");
+		currentGroupName.set("");
 		searchProducts(false);
 	}
 	function loadMorePages() {
@@ -160,6 +164,14 @@
 				{/if}
 				{#if $data && $data.length > 0}
 					<ProductGrid />
+					<div class="div-center">
+						<h2>
+							Página: {$currentPage} / {$totalPages}
+						</h2>
+						<h2>
+							Items en pantalla: {$data.length} / {$totalRecords}
+						</h2>
+					</div>
 					{#if $loading}
 						<div class="div-center">
 							<div class="loader"></div>
@@ -190,8 +202,7 @@
 							{/if}
 						</div>
 					{/if}
-				{/if}
-				{#if $data && $data.length === 0}
+				{:else if !$loading}
 					<div class="div-center">
 						<h2>
 							No se encuentraron productos con los filtros
@@ -212,7 +223,7 @@
 	.div-center {
 		margin: auto;
 		text-align: center;
-		padding-bottom: 30px;
+		padding-bottom: 10px;
 		padding-top: 30px;
 	}
 	.backdrop {

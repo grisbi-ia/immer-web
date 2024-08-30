@@ -94,10 +94,8 @@
 			</div>
 			<div class="slide active">
 				<div class="content">
-					<span
-						>Precios especiales y descuentos en compras al por mayor</span
-					>
-					<h3>Descuentos del 25%</h3>
+					<span>Precios especiales en compras al por mayor</span>
+					<h3>Compra y compruébalo por ti mismo</h3>
 					<a href="/shop" class="btn">Comprar Ahora</a>
 				</div>
 				<div class="image">

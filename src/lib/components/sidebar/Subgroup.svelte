@@ -9,7 +9,6 @@
 
 	export let name: string;
 	export let id: any;
-
 	function search() {
 		animateScroll.scrollToTop();
 		$textToSearch = null;
@@ -23,13 +22,19 @@
 	}
 </script>
 
-<span style="background-image: url(/image/group.png)" on:click={toggle}
-	>{name}</span
->
+{#if $currentGroupName === name}
+	<span style="background-color: lightblue" on:click={toggle}>
+		{name}
+	</span>
+{:else}
+	<span on:click={toggle}>
+		{name}
+	</span>
+{/if}
 
 <style>
 	span {
-		padding: 0 0 0 1.5em;
+		padding: 0 0 0 0;
 		background: 0 0.1em no-repeat;
 		background-size: 1em 1em;
 		cursor: pointer;

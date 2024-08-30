@@ -59,25 +59,32 @@
 	}
 
 	function getPrice() {
+		/*
 		if ($currentUser && $currentUser.person.discountRate) {
 			const a =
 				product.newPrice * ($currentUser.person.discountRate / 100);
 			const b = product.newPrice - a;
 			return Math.round(b * 100) / 100;
 		} else return product.newPrice;
+*/
+		return product.newPrice;
 	}
 	const handleImgError = (ev) => (ev.target.src = "image/product.png");
+	const handleImgBrandError = (ev) => (ev.target.src = "image/no-brand.png");
 </script>
 
 <div class="box">
+	<!--
 	{#if $currentUser && $currentUser?.person?.discountRate > 0}
 		<span class="discount" style="background-color: lightblue;"
 			>-{$currentUser?.person?.discountRate}%</span
 		>
 	{/if}
+	-->
 	{#if $currentUser}
 		{#if product.availibilityCountInCart}
 			<div class="icon-cart">
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<div
 					id="cart-btn"
 					title="Unidades en el carrito"
@@ -91,16 +98,17 @@
 	<img
 		use:zoom
 		on:click={handleOpen}
-		src={`https://immer.ec/image/products/${product.id}.png`}
-		alt=""
+		src={`image/products/${product.id}.png`}
+		alt="Producto"
 		decoding="auto"
 		on:error={handleImgError}
 	/>
-	<div style="padding-bottom: 2rem; padding-top: 2px;">
+	<div style="padding-bottom: 2rem; padding-top: 25px;">
 		<img
 			style="width: auto; height: 3rem;"
-			src={`image/brand/ipone.png`}
+			src={`image/brand/${product.brandName}.png`}
 			alt="Marca"
+			on:error={handleImgBrandError}
 		/>
 	</div>
 	<h3 on:click={handleOpen}>{product.name}</h3>
