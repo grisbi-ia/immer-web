@@ -1,5 +1,12 @@
 # Changelog
 
+## Version [2.1.1] - 2024-08-30
+### New features (Nuevo)
+### Improvements (Mejoras)
+### Bug fixes (Corección de Errores)
+- Arreglo de recuperación de lista de precios de la sesión, valida si es nulo o no
+### Tasks
+
 ## Version [2.1] - 2024-08-29
 ### New features (Nuevo)
 ### Improvements (Mejoras)

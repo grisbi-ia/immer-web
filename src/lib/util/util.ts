@@ -75,7 +75,7 @@ export async function searchProducts(moreData: boolean) {
     let discount = 0;
     let priceList = decryptLP(get(pf_lp) ?? "");
     const user = get(currentUser);
-
+    console.log("PL:" + priceList)
     if (user && user.person.discountRate > 0) {
         discount = user.person.discountRate;
     }
@@ -167,9 +167,13 @@ export async function reloadUserFromToken() {
 }
 
 function encryptLP(lp: string) {
+    if (lp === "null")
+        return ""
     return generateRandomString(10) + lp;
 }
 function decryptLP(encryptLP: string) {
+    if (encryptLP === "null")
+        return ""
     return encryptLP.substring(encryptLP.length - 1)
 }
 
