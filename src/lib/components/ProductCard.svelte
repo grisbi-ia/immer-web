@@ -8,7 +8,6 @@
 	} from "$lib/stores/store";
 	import { isValidToken } from "$lib/util/util";
 	import { openModal } from "svelte-modals";
-	import { zoom } from "../zomm";
 	import ProductModal from "./ProductModal.svelte";
 	import { goto } from "$app/navigation";
 	import { onMount } from "svelte";
@@ -69,8 +68,17 @@
 */
 		return product.newPrice;
 	}
-	const handleImgError = (ev) => (ev.target.src = "image/product.png");
-	const handleImgBrandError = (ev) => (ev.target.src = "image/no-brand.png");
+
+	// Asegúrese de que las rutas estén correctas y sean absolutas
+	const handleImgError = (ev) => {
+		console.log("Error cargando imagen de producto:", product.id);
+		ev.target.src = "/image/product.png";
+	};
+
+	const handleImgBrandError = (ev) => {
+		console.log("Error cargando imagen de marca:", product.brandName);
+		ev.target.src = "/image/no-brand.png";
+	};
 </script>
 
 <div class="box">
@@ -95,46 +103,67 @@
 			</div>
 		{/if}
 	{/if}
-	<img
-		use:zoom
-		on:click={handleOpen}
-		src={`image/products/${product.id}.png`}
-		alt="Producto"
-		decoding="auto"
-		on:error={handleImgError}
-	/>
-	<div style="padding-bottom: 2rem; padding-top: 25px;">
+	<div class="product-image-container">
+		<img
+			on:click={handleOpen}
+			src={`/image/products/${product.id}.png`}
+			alt="Producto"
+			class="product-image"
+			loading="lazy"
+			decoding="async"
+			fetchpriority="low"
+			width="200"
+			height="200"
+			on:error={handleImgError}
+			crossorigin="anonymous"
+			importance="high"
+			referrerpolicy="no-referrer-when-downgrade"
+		/>
+	</div>
+	<div class="brand-container">
 		<img
 			style="width: auto; height: 3rem;"
-			src={`image/brand/${product.brandName}.png`}
+			src={`/image/brand/${product.brandName}.png`}
 			alt="Marca"
+			loading="lazy"
+			decoding="async"
+			fetchpriority="low"
+			importance="auto"
+			referrerpolicy="no-referrer-when-downgrade"
+			height="48"
 			on:error={handleImgBrandError}
 		/>
 	</div>
-	<h3 on:click={handleOpen}>{product.name}</h3>
-	<div class="code">SKU: {product.code}</div>
+	<div class="product-info-container">
+		<div class="product-name" on:click={handleOpen}>{product.name}</div>
+		<div class="code">SKU: {product.code}</div>
+	</div>
 	{#if $currentUser}
-		<div class="price">
-			${getPrice()}
-			{#if $currentUser?.person?.discountRate > 0}
-				<span> ${product.oldPrice.toFixed(2)} </span>
-			{/if}
+		<div class="product-details">
+			<div class="price">
+				${getPrice()}
+				{#if $currentUser?.person?.discountRate > 0}
+					<span> ${product.oldPrice.toFixed(2)} </span>
+				{/if}
+			</div>
+			<div class="quantity">
+				<span>Cantidad : </span>
+				<input
+					type="number"
+					min="1"
+					max={product.availibilityCount}
+					bind:value={quantity}
+				/>
+			</div>
+			<div class="stock-info">(máx.: {product.availibilityCount})</div>
+			<div class="button-container">
+				<button class="btn" on:click={addPoductCart}> Comprar </button>
+			</div>
 		</div>
-		<div class="quantity">
-			<span>Cantidad : </span>
-			<input
-				type="number"
-				min="1"
-				max={product.availibilityCount}
-				bind:value={quantity}
-			/>
-		</div>
-		<br />
-		<br />
-		<div>(máx.: {product.availibilityCount})</div>
-		<button class="btn" on:click={addPoductCart}> Comprar </button>
 	{:else}
-		<div class="text">Iniciar sesión para ver precio y comprar</div>
+		<div class="login-message">
+			Iniciar sesión para ver precio y comprar
+		</div>
 	{/if}
 </div>
 
@@ -151,5 +180,127 @@
 
 	.icon-cart span {
 		font-size: 1rem;
+	}
+
+	.product-image-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 200px;
+		margin-bottom: 10px;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.product-image {
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: contain;
+		transform: translateZ(0); /* Aceleración por hardware */
+		backface-visibility: hidden; /* Mejora rendimiento */
+		transition: transform 0.3s ease;
+	}
+
+	/* Efecto sutil al pasar el cursor */
+	.box:hover .product-image {
+		transform: scale(
+			1.05
+		); /* Ligero aumento de tamaño al hover en la tarjeta */
+	}
+
+	.brand-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding-bottom: 1.5rem;
+		padding-top: 0.5rem;
+		height: 48px;
+	}
+
+	.product-info-container {
+		height: 80px; /* Altura fija para el contenedor de información */
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 10px;
+		overflow: hidden;
+	}
+
+	.product-name {
+		font-size: 1.5rem;
+		font-weight: bold;
+		color: #222;
+		cursor: pointer;
+		display: -webkit-box;
+		-webkit-line-clamp: 2; /* Limitar a 2 líneas */
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		line-height: 1.3;
+		margin-bottom: 5px;
+	}
+
+	.product-name {
+		transition: color 0.3s ease;
+	}
+
+	.product-name:hover,
+	.box:hover .product-name {
+		color: #153889;
+	}
+
+	.code {
+		font-size: 1.2rem;
+		color: #222;
+		text-align: center;
+	}
+
+	.product-details {
+		flex: 1; /* Expande para ocupar espacio disponible */
+		display: flex;
+		flex-direction: column;
+		margin-top: auto; /* Empuja hacia abajo */
+	}
+
+	.price {
+		margin: 10px 0;
+		font-size: 2rem;
+		color: #333;
+		text-align: center;
+	}
+
+	.price span {
+		font-size: 1.4rem;
+		color: #999;
+		text-decoration: line-through;
+	}
+
+	.quantity {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 5px 0;
+	}
+
+	.stock-info {
+		text-align: center;
+		margin: 5px 0;
+		font-size: 1.2rem;
+	}
+
+	.button-container {
+		margin-top: auto; /* Empuja el botón hacia abajo */
+		text-align: center;
+		padding: 10px 0;
+	}
+
+	.login-message {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.2rem;
+		color: #999;
+		text-align: center;
+		padding: 20px 0;
 	}
 </style>

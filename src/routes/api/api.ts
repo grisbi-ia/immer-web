@@ -23,6 +23,7 @@ export function secureApi(token: string, method: string, resource: string, data?
 }
 
 export function goApi(method: string, resource: string, data?: Record<string, unknown>) {
+	console.log("Api Resource:" + `${VITE_URL_GO_API}/${resource}`);
 	return fetch(`${VITE_URL_GO_API}/${resource}`, {
 		method,
 		headers: {

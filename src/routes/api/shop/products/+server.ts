@@ -26,6 +26,9 @@ export async function POST({ request, response }: { request: any, response: any 
     else {
         resource = `items/pos/POS001?priceList=${priceList}&discount=${discount}&l=${limit}&p=${body["page"]}`
     }
+
+    console.log("Resource:" + `${resource}`);
+
     const responseFetch = await goApi('GET', `${resource}`);
     const powerfinResponse = await responseFetch.json();
     return new Response(

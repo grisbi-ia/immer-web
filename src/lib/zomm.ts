@@ -1,19 +1,39 @@
 export function zoom(node, scale = 1.04) {
-    node.style.transition = '0.5s'
-
+    // Use a more performant animation approach
+    let zoomInApplied = false;
+    
     function zoomIn() {
-        node.style.transform = `scale(${scale})`
+        if (!zoomInApplied) {
+            zoomInApplied = true;
+            // Use requestAnimationFrame for smoother transitions
+            requestAnimationFrame(() => {
+                node.style.transform = `scale(${scale})`;
+            });
+        }
     }
+    
     function zoomOut() {
-        node.style.transform = 'scale(1)'
+        zoomInApplied = false;
+        requestAnimationFrame(() => {
+            node.style.transform = 'scale(1)';
+        });
     }
-    node.addEventListener('mouseenter', zoomIn)
-    node.addEventListener('mouseleave', zoomOut)
+    
+    // Don't add transition on mount, only apply when needed
+    function handleTransitionStart() {
+        node.style.transition = '0.3s transform';
+    }
+    
+    // Add event listeners with passive option for better performance
+    node.addEventListener('mouseenter', handleTransitionStart, { passive: true });
+    node.addEventListener('mouseenter', zoomIn, { passive: true });
+    node.addEventListener('mouseleave', zoomOut, { passive: true });
 
     return {
         destroy() {
-            node.removeEventListener('mouseenter', zoomIn)
-            node.removeEventListener('mouseleave', zoomOut)
+            node.removeEventListener('mouseenter', handleTransitionStart);
+            node.removeEventListener('mouseenter', zoomIn);
+            node.removeEventListener('mouseleave', zoomOut);
         }
     }
 }

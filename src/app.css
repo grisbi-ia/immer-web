@@ -588,6 +588,13 @@ section {
   height: 20rem;
   cursor: pointer;
   content-visibility: auto;
+  will-change: transform;
+  aspect-ratio: auto;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .product .box-container .box .discount {

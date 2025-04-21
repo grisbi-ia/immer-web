@@ -75,7 +75,7 @@ export async function searchProducts(moreData: boolean) {
     let discount = 0;
     let priceList = decryptLP(get(pf_lp) ?? "");
     const user = get(currentUser);
-    console.log("PL:" + priceList)
+
     if (user && user.person.discountRate > 0) {
         discount = user.person.discountRate;
     }
@@ -86,11 +86,26 @@ export async function searchProducts(moreData: boolean) {
         data.set([]);
     }
 
+    console.log("Page:" + get(currentPage));
+    console.log("textToSearch:" + get(textToSearch));
+    console.log("groupToSearch:" + get(groupToSearch));
+    console.log("discount:" + discount);
+    console.log("priceList:" + priceList);
+
+    let formatedTextToSearch = get(textToSearch);
+    if (formatedTextToSearch != null) {
+        formatedTextToSearch = formatedTextToSearch!.replaceAll("%", "%25");
+    }
+    else {
+        formatedTextToSearch = "";
+    }
+
+
     const responseFetch = await fetch("/api/shop/products", {
         method: "POST",
         body: JSON.stringify({
             page: get(currentPage),
-            textToSearch: get(textToSearch),
+            textToSearch: formatedTextToSearch,
             groupToSearch: get(groupToSearch),
             discount: discount,
             priceList: priceList
