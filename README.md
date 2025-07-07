@@ -1,27 +1,24 @@
-# create-svelte
+# IMMER E-commerce Web Application
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Aplicación web de e-commerce para IMMER construida con SvelteKit.
 
-## Creating a project
+## 📚 Documentación
 
-If you're seeing this, you've probably already done this step. Congrats!
+Para documentación técnica detallada, consulta la carpeta [`docs/`](./docs/):
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+- **[Sistema de Filtros](./docs/DOCUMENTACION_FILTROS.md)** - Documentación completa del sistema de filtros del catálogo
+- **[Navegación Persistente](./docs/NAVEGACION_PERSISTENTE.md)** - Sistema que mantiene el progreso al navegar entre páginas
+- **[Revisión Técnica](./docs/REVISION_PROYECTO.md)** - Análisis técnico completo del proyecto IMMER
+- **[Índice de Documentación](./docs/README.md)** - Guía completa de toda la documentación disponible
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## 🚀 Desarrollo
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Una vez que hayas clonado el proyecto e instalado las dependencias con `npm install` (o `pnpm install` o `yarn`), inicia el servidor de desarrollo:
 
 ```bash
 npm run dev
 
-# or start the server and open the app in a new browser tab
+# o inicia el servidor y abre la aplicación en una nueva pestaña del navegador
 npm run dev -- --open
 ```
 

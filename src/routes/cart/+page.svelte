@@ -3,6 +3,7 @@
 		showAlert,
 		getUserFromToken,
 		reloadUserFromToken,
+		markNavigationFromShop, // 🆕 Importar función de persistencia
 	} from "$lib/util/util";
 	import { cartProducts } from "../../lib/stores/store";
 	import Header from "$lib/components/Header.svelte";
@@ -47,6 +48,16 @@
 		$cartProducts = $cartProducts.filter((cartItem) => cartItem != product);
 		return;
 	};
+
+	// 🆕 NAVEGACIÓN PERSISTENTE - Marcar que vamos a restaurar al volver a shop
+	function handleBackToShop() {
+		// Marcar en sessionStorage que estamos volviendo al shop desde cart
+		if (typeof window !== "undefined") {
+			sessionStorage.setItem("navigatedFromShop", "true");
+			sessionStorage.setItem("shopNavigationTime", Date.now().toString());
+			console.log("🔄 Marked navigation back to shop from cart");
+		}
+	}
 
 	function isNumeric(value) {
 		return !isNaN(parseFloat(value)) && isFinite(value);
@@ -203,13 +214,17 @@
 					<h2>Impuestos : $ {tax.toFixed(2)}</h2>
 					<h2>TOTAL: $ {total.toFixed(2)}</h2>
 					<p>(Valores incluyen impuestos)</p>
-					<a href={"/shop"} class="btn">Seguir comprando</a>
+					<a href={"/shop"} class="btn" on:click={handleBackToShop}
+						>Seguir comprando</a
+					>
 					<a href={"/checkout"} class="btn">Finalizar Compra</a>
 				</div>
 			{:else}
 				<h3>Tu carrito de compras está vacío.</h3>
 				<br />
-				<a href={"/shop"} class="btn">Ir a la tienda</a>
+				<a href={"/shop"} class="btn" on:click={handleBackToShop}
+					>Ir a la tienda</a
+				>
 			{/if}
 		{:else}
 			<LoginForm />

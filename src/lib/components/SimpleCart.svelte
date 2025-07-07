@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { cartProducts, totalCart, totalUnities } from '../stores/store';
+	import { cartProducts, totalCart, totalUnities } from "../stores/store";
+	import { markNavigationFromShop } from "$lib/util/util";
 
 	$: totalAmount = $totalCart;
 	$: quantityProduct = $cartProducts.length;
@@ -7,6 +8,11 @@
 
 	let products = $cartProducts as Product[];
 	export let showCartForm = () => {};
+
+	// 🆕 NAVEGACIÓN PERSISTENTE - Marcar navegación al carrito
+	function handleCartNavigation() {
+		markNavigationFromShop();
+	}
 </script>
 
 <div class="shopping-cart active">
@@ -31,5 +37,6 @@
 	<h3 class="total">Items : <span>{quantityProduct}</span></h3>
 	<h3 class="total">Unidades : <span>{countUnities}</span></h3>
 	<h3 class="total">Total : <span>${totalAmount.toFixed(2)}</span></h3>
-	<a href={'/cart'} class="btn">Ver Carrito</a>
+	<a href={"/cart"} class="btn" on:click={handleCartNavigation}>Ver Carrito</a
+	>
 </div>

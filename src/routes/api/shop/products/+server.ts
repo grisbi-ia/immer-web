@@ -13,18 +13,18 @@ export async function POST({ request, response }: { request: any, response: any 
 
     let resource = '';
     let limit = 20;
+    let brandFilter = body.brandToSearch ? `&brand=${body["brandToSearch"]}` : '';
+    let groupFilter = body.groupToSearch ? `&group=${body["groupToSearch"]}` : '';
+    let subgroupFilter = body.subgroupToSearch ? `&subgroup=${body["subgroupToSearch"]}` : '';
 
     if (body.textToSearch) {
-        resource = `items/pos/POS001?priceList=${priceList}&discount=${discount}&l=${limit}&p=${body["page"]}&name=${body["textToSearch"]}`
-    }
-    else if (body.groupToSearch) {
-        resource = `items/pos/POS001?priceList=${priceList}&discount=${discount}&l=${limit}&p=${body["page"]}&group=${body["groupToSearch"]}`
+        resource = `items/pos/POS001?priceList=${priceList}&discount=${discount}&l=${limit}&p=${body["page"]}&name=${body["textToSearch"]}${brandFilter}${groupFilter}${subgroupFilter}`
     }
     else if (body.id) {
-        resource = `items/pos/POS001?priceList=${priceList}&discount=${discount}&l=${limit}&p=${body["page"]}&id=${body["id"]}`
+        resource = `items/pos/POS001?priceList=${priceList}&discount=${discount}&l=${limit}&p=${body["page"]}&id=${body["id"]}${brandFilter}${groupFilter}${subgroupFilter}`
     }
     else {
-        resource = `items/pos/POS001?priceList=${priceList}&discount=${discount}&l=${limit}&p=${body["page"]}`
+        resource = `items/pos/POS001?priceList=${priceList}&discount=${discount}&l=${limit}&p=${body["page"]}${brandFilter}${groupFilter}${subgroupFilter}`
     }
 
     console.log("Resource:" + `${resource}`);

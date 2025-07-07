@@ -1,8 +1,9 @@
 <script lang="ts">
 	import {
-		currentGroupName,
-		groupToSearch,
 		textToSearch,
+		selectedBrand,
+		selectedGroup,
+		selectedSubgroup,
 	} from "$lib/stores/store";
 	import { page } from "$app/stores";
 	import { goto } from "$app/navigation";
@@ -12,8 +13,12 @@
 	function search() {
 		if ($page.url.pathname != "/shop") goto("/shop");
 		animateScroll.scrollToTop();
-		groupToSearch.set("");
-		currentGroupName.set("");
+
+		// Clear all filters when doing text search
+		selectedBrand.set(null);
+		selectedGroup.set(null);
+		selectedSubgroup.set(null);
+
 		searchProducts(false);
 	}
 

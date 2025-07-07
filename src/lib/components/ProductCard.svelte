@@ -135,7 +135,9 @@
 		/>
 	</div>
 	<div class="product-info-container">
-		<div class="product-name" on:click={handleOpen}>{product.name}</div>
+		<div class="product-name" on:click={handleOpen} title={product.name}>
+			{product.name}
+		</div>
 		<div class="code">SKU: {product.code}</div>
 	</div>
 	{#if $currentUser}
@@ -168,6 +170,14 @@
 </div>
 
 <style>
+	.box {
+		display: flex;
+		flex-direction: column;
+		height: 100%; /* Asegurar altura uniforme */
+		min-height: 500px; /* Altura mínima aumentada para acomodar nombres largos */
+		position: relative;
+	}
+
 	.icon-cart {
 		position: absolute;
 		top: 1rem;
@@ -218,11 +228,11 @@
 	}
 
 	.product-info-container {
-		height: 80px; /* Altura fija para el contenedor de información */
 		display: flex;
 		flex-direction: column;
 		margin-bottom: 10px;
-		overflow: hidden;
+		min-height: 80px; /* Altura mínima en lugar de fija */
+		flex-shrink: 0; /* No se contrae */
 	}
 
 	.product-name {
@@ -230,20 +240,21 @@
 		font-weight: bold;
 		color: #222;
 		cursor: pointer;
-		display: -webkit-box;
-		-webkit-line-clamp: 2; /* Limitar a 2 líneas */
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-		text-overflow: ellipsis;
 		line-height: 1.3;
 		margin-bottom: 5px;
+		position: relative;
+		text-align: center;
+		word-wrap: break-word;
+		transition:
+			color 0.3s ease,
+			transform 0.2s ease;
 	}
 
-	.product-name {
-		transition: color 0.3s ease;
+	.product-name:hover {
+		color: #153889;
+		transform: scale(1.02);
 	}
 
-	.product-name:hover,
 	.box:hover .product-name {
 		color: #153889;
 	}

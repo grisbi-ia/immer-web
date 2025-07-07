@@ -1,0 +1,1642 @@
+{
+  "lastUpdated": "2025-07-07T05:09:58Z",
+  "version": "1.0",
+  "catalog": {
+    "brands": [
+      {
+        "id": "049",
+        "name": "ANKER",
+        "groupIds": [],
+        "subgroupIds": [
+          "21",
+          "27",
+          "28",
+          "30",
+          "40"
+        ]
+      },
+      {
+        "id": "003",
+        "name": "ATHENA",
+        "groupIds": [
+          "13",
+          "15",
+          "8"
+        ],
+        "subgroupIds": [
+          "27",
+          "33",
+          "34",
+          "35",
+          "36",
+          "37",
+          "38",
+          "39",
+          "40",
+          "41",
+          "45",
+          "46",
+          "47",
+          "48",
+          "49",
+          "50",
+          "51",
+          "52",
+          "53",
+          "54",
+          "55",
+          "56",
+          "58",
+          "61",
+          "62",
+          "65"
+        ]
+      },
+      {
+        "id": "021",
+        "name": "BIKER",
+        "groupIds": [
+          "1",
+          "18",
+          "4"
+        ],
+        "subgroupIds": [
+          "21",
+          "22",
+          "23",
+          "24",
+          "26",
+          "27",
+          "28",
+          "29",
+          "30",
+          "40",
+          "57",
+          "58",
+          "65",
+          "67",
+          "T3"
+        ]
+      },
+      {
+        "id": "037",
+        "name": "BRANDY",
+        "groupIds": [],
+        "subgroupIds": [
+          "01",
+          "21",
+          "50"
+        ]
+      },
+      {
+        "id": "005",
+        "name": "CIRCUIT",
+        "groupIds": [
+          "1",
+          "4",
+          "6"
+        ],
+        "subgroupIds": [
+          "22",
+          "24",
+          "28",
+          "30",
+          "63"
+        ]
+      },
+      {
+        "id": "004",
+        "name": "COMETA",
+        "groupIds": [
+          "4"
+        ],
+        "subgroupIds": [
+          "27",
+          "29"
+        ]
+      },
+      {
+        "id": "039",
+        "name": "CONDOR",
+        "groupIds": [],
+        "subgroupIds": [
+          "45",
+          "62"
+        ]
+      },
+      {
+        "id": "019",
+        "name": "DANIDREA",
+        "groupIds": [
+          "10",
+          "13",
+          "6"
+        ],
+        "subgroupIds": [
+          "27",
+          "31",
+          "42",
+          "45",
+          "48",
+          "53",
+          "57",
+          "63",
+          "65",
+          "66"
+        ]
+      },
+      {
+        "id": "045",
+        "name": "DAROM",
+        "groupIds": [],
+        "subgroupIds": [
+          "21"
+        ]
+      },
+      {
+        "id": "026",
+        "name": "DDL",
+        "groupIds": [],
+        "subgroupIds": [
+          "58"
+        ]
+      },
+      {
+        "id": "046",
+        "name": "DELTA",
+        "groupIds": [],
+        "subgroupIds": [
+          "67"
+        ]
+      },
+      {
+        "id": "022",
+        "name": "DEMTEC",
+        "groupIds": [],
+        "subgroupIds": [
+          "21",
+          "28",
+          "30",
+          "45",
+          "62"
+        ]
+      },
+      {
+        "id": "014",
+        "name": "DIAFRAG",
+        "groupIds": [
+          "10"
+        ],
+        "subgroupIds": [
+          "43",
+          "44",
+          "45",
+          "58"
+        ]
+      },
+      {
+        "id": "006",
+        "name": "E G K",
+        "groupIds": [],
+        "subgroupIds": [
+          "29",
+          "45",
+          "50"
+        ]
+      },
+      {
+        "id": "043",
+        "name": "EKSIM",
+        "groupIds": [],
+        "subgroupIds": [
+          "40"
+        ]
+      },
+      {
+        "id": "053",
+        "name": "EMBUS",
+        "groupIds": [],
+        "subgroupIds": [
+          "42"
+        ]
+      },
+      {
+        "id": "015",
+        "name": "F F P",
+        "groupIds": [],
+        "subgroupIds": [
+          "50"
+        ]
+      },
+      {
+        "id": "018",
+        "name": "F N A",
+        "groupIds": [],
+        "subgroupIds": [
+          "57"
+        ]
+      },
+      {
+        "id": "051",
+        "name": "FNA",
+        "groupIds": [],
+        "subgroupIds": [
+          "57"
+        ]
+      },
+      {
+        "id": "025",
+        "name": "GENUINE",
+        "groupIds": [
+          "1",
+          "10",
+          "12",
+          "13",
+          "14",
+          "18",
+          "19",
+          "4",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "subgroupIds": [
+          "27",
+          "59",
+          "61"
+        ]
+      },
+      {
+        "id": "038",
+        "name": "GP7",
+        "groupIds": [],
+        "subgroupIds": [
+          "42",
+          "45",
+          "47",
+          "56"
+        ]
+      },
+      {
+        "id": "044",
+        "name": "GP8",
+        "groupIds": [],
+        "subgroupIds": [
+          "42"
+        ]
+      },
+      {
+        "id": "048",
+        "name": "G S W",
+        "groupIds": [],
+        "subgroupIds": [
+          "60"
+        ]
+      },
+      {
+        "id": "027",
+        "name": "HONDA",
+        "groupIds": [],
+        "subgroupIds": [
+          "45",
+          "57",
+          "65"
+        ]
+      },
+      {
+        "id": "035",
+        "name": "IPONE",
+        "groupIds": [
+          "2"
+        ],
+        "subgroupIds": [
+          "59"
+        ]
+      },
+      {
+        "id": "030",
+        "name": "KAWASAKI",
+        "groupIds": [],
+        "subgroupIds": [
+          "50"
+        ]
+      },
+      {
+        "id": "040",
+        "name": "K-CABOS",
+        "groupIds": [],
+        "subgroupIds": [
+          "60"
+        ]
+      },
+      {
+        "id": "031",
+        "name": "KONLON",
+        "groupIds": [],
+        "subgroupIds": []
+      },
+      {
+        "id": "020",
+        "name": "LAQUILA",
+        "groupIds": [
+          "13",
+          "16",
+          "19",
+          "4"
+        ],
+        "subgroupIds": [
+          "02",
+          "21",
+          "40",
+          "45",
+          "47",
+          "49",
+          "52",
+          "57",
+          "60",
+          "62",
+          "63",
+          "66"
+        ]
+      },
+      {
+        "id": "036",
+        "name": "LOCTITE",
+        "groupIds": [],
+        "subgroupIds": [
+          "28"
+        ]
+      },
+      {
+        "id": "016",
+        "name": "MAGNETRON",
+        "groupIds": [
+          "13"
+        ],
+        "subgroupIds": [
+          "46",
+          "62"
+        ]
+      },
+      {
+        "id": "001",
+        "name": "MAXSRO",
+        "groupIds": [
+          "1",
+          "10",
+          "16",
+          "18",
+          "19",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "subgroupIds": [
+          "01",
+          "02",
+          "21",
+          "22",
+          "25",
+          "27",
+          "29",
+          "30",
+          "32",
+          "33",
+          "36",
+          "39",
+          "40",
+          "41",
+          "42",
+          "43",
+          "44",
+          "45",
+          "46",
+          "47",
+          "48",
+          "49",
+          "53",
+          "54",
+          "58",
+          "60",
+          "61",
+          "62",
+          "64",
+          "65",
+          "66",
+          "67",
+          "T3"
+        ]
+      },
+      {
+        "id": "032",
+        "name": "MERCURIO",
+        "groupIds": [],
+        "subgroupIds": [
+          "62"
+        ]
+      },
+      {
+        "id": "023",
+        "name": "MG0 MOLAS",
+        "groupIds": [],
+        "subgroupIds": [
+          "27",
+          "42",
+          "63",
+          "65"
+        ]
+      },
+      {
+        "id": "007",
+        "name": "M G O",
+        "groupIds": [],
+        "subgroupIds": [
+          "21",
+          "27"
+        ]
+      },
+      {
+        "id": "008",
+        "name": "MOTO BOR",
+        "groupIds": [],
+        "subgroupIds": [
+          "42",
+          "58",
+          "61"
+        ]
+      },
+      {
+        "id": "042",
+        "name": "MOTO X",
+        "groupIds": [],
+        "subgroupIds": [
+          "30"
+        ]
+      },
+      {
+        "id": "033",
+        "name": "NGK",
+        "groupIds": [
+          "13"
+        ],
+        "subgroupIds": [
+          "46"
+        ]
+      },
+      {
+        "id": "050",
+        "name": "PARAMOTOS",
+        "groupIds": [],
+        "subgroupIds": [
+          "28"
+        ]
+      },
+      {
+        "id": "047",
+        "name": "PROTECH",
+        "groupIds": [],
+        "subgroupIds": [
+          "21",
+          "22",
+          "25",
+          "27",
+          "28",
+          "29",
+          "32",
+          "40",
+          "42",
+          "45",
+          "46",
+          "47",
+          "48",
+          "49",
+          "50",
+          "57",
+          "60",
+          "61",
+          "62",
+          "63",
+          "66"
+        ]
+      },
+      {
+        "id": "009",
+        "name": "PROTORK",
+        "groupIds": [
+          "1",
+          "18",
+          "4",
+          "6",
+          "7"
+        ],
+        "subgroupIds": [
+          "21",
+          "22",
+          "23",
+          "24",
+          "25",
+          "26",
+          "27",
+          "28",
+          "30",
+          "32",
+          "45",
+          "57",
+          "58",
+          "62",
+          "63",
+          "65",
+          "67"
+        ]
+      },
+      {
+        "id": "002",
+        "name": "RIFFEL",
+        "groupIds": [
+          "1",
+          "10",
+          "18",
+          "19",
+          "2",
+          "20",
+          "6"
+        ],
+        "subgroupIds": [
+          "01",
+          "02",
+          "03",
+          "21",
+          "22",
+          "27",
+          "31",
+          "38",
+          "39",
+          "40",
+          "42",
+          "43",
+          "44",
+          "50",
+          "62",
+          "63",
+          "64",
+          "66",
+          "67",
+          "T3"
+        ]
+      },
+      {
+        "id": "028",
+        "name": "SERVITEC",
+        "groupIds": [
+          "7"
+        ],
+        "subgroupIds": [
+          "61",
+          "62"
+        ]
+      },
+      {
+        "id": "010",
+        "name": "S T L U",
+        "groupIds": [
+          "4"
+        ],
+        "subgroupIds": [
+          "28"
+        ]
+      },
+      {
+        "id": "029",
+        "name": "THREEHEADS",
+        "groupIds": [],
+        "subgroupIds": [
+          "32",
+          "57",
+          "58"
+        ]
+      },
+      {
+        "id": "052",
+        "name": "VALFLEX",
+        "groupIds": [],
+        "subgroupIds": [
+          "40"
+        ]
+      },
+      {
+        "id": "011",
+        "name": "VEDAMOTORS",
+        "groupIds": [
+          "13"
+        ],
+        "subgroupIds": [
+          "34",
+          "37",
+          "39",
+          "41",
+          "45",
+          "48",
+          "49",
+          "54"
+        ]
+      },
+      {
+        "id": "012",
+        "name": "WESTER",
+        "groupIds": [
+          "6"
+        ],
+        "subgroupIds": [
+          "21",
+          "32",
+          "61"
+        ]
+      },
+      {
+        "id": "024",
+        "name": "WGK",
+        "groupIds": [
+          "13"
+        ],
+        "subgroupIds": [
+          "45",
+          "46",
+          "47"
+        ]
+      },
+      {
+        "id": "041",
+        "name": "WW3",
+        "groupIds": [],
+        "subgroupIds": [
+          "27"
+        ]
+      },
+      {
+        "id": "013",
+        "name": "X-CELL",
+        "groupIds": [
+          "1",
+          "18",
+          "4",
+          "7"
+        ],
+        "subgroupIds": [
+          "27",
+          "28"
+        ]
+      },
+      {
+        "id": "034",
+        "name": "YAMAHA",
+        "groupIds": [],
+        "subgroupIds": []
+      },
+      {
+        "id": "017",
+        "name": "ZOUIL",
+        "groupIds": [],
+        "subgroupIds": [
+          "45",
+          "46",
+          "60",
+          "62"
+        ]
+      }
+    ],
+    "groups": [
+      {
+        "id": "1",
+        "name": "ACCESORIOS",
+        "brandIds": [
+          "001",
+          "002",
+          "005",
+          "009",
+          "013",
+          "021",
+          "025"
+        ],
+        "subgroupIds": [
+          "22",
+          "23",
+          "24"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "2",
+        "name": "ACEITES",
+        "brandIds": [
+          "002",
+          "035"
+        ],
+        "subgroupIds": [
+          "59"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "3",
+        "name": "CABLES",
+        "brandIds": [
+          "001"
+        ],
+        "subgroupIds": [
+          "60"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "4",
+        "name": "CARROCERIA",
+        "brandIds": [
+          "001",
+          "004",
+          "005",
+          "009",
+          "010",
+          "013",
+          "020",
+          "021",
+          "025"
+        ],
+        "subgroupIds": [
+          "25",
+          "26",
+          "27",
+          "28"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "5",
+        "name": "CAUCHOS",
+        "brandIds": [
+          "001"
+        ],
+        "subgroupIds": [
+          "61"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "6",
+        "name": "DIRECCION",
+        "brandIds": [
+          "001",
+          "002",
+          "005",
+          "009",
+          "012",
+          "019",
+          "025"
+        ],
+        "subgroupIds": [
+          "29",
+          "30",
+          "31",
+          "32"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "7",
+        "name": "ELECTRICO",
+        "brandIds": [
+          "001",
+          "009",
+          "013",
+          "025",
+          "028"
+        ],
+        "subgroupIds": [
+          "62"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "8",
+        "name": "EMPAQUES",
+        "brandIds": [
+          "001",
+          "003",
+          "025"
+        ],
+        "subgroupIds": [
+          "33",
+          "34",
+          "35",
+          "36",
+          "37",
+          "38"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "9",
+        "name": "FILTROS",
+        "brandIds": [
+          "001",
+          "025"
+        ],
+        "subgroupIds": [
+          "39",
+          "40",
+          "41"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "10",
+        "name": "FRENOS",
+        "brandIds": [
+          "001",
+          "002",
+          "014",
+          "019",
+          "025"
+        ],
+        "subgroupIds": [
+          "42",
+          "43",
+          "44"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "11",
+        "name": "HERRAMIENTAS",
+        "brandIds": [],
+        "subgroupIds": [
+          "63"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "T2",
+        "name": "LIQUIDACION ",
+        "brandIds": [],
+        "subgroupIds": [],
+        "parentId": null
+      },
+      {
+        "id": "12",
+        "name": "LLANTAS",
+        "brandIds": [
+          "025"
+        ],
+        "subgroupIds": [
+          "64"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "13",
+        "name": "MOTOR",
+        "brandIds": [
+          "003",
+          "011",
+          "016",
+          "019",
+          "020",
+          "024",
+          "025",
+          "033"
+        ],
+        "subgroupIds": [
+          "45",
+          "46",
+          "47",
+          "48",
+          "49",
+          "50",
+          "51",
+          "52"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "14",
+        "name": "PERNOS Y MAS",
+        "brandIds": [
+          "025"
+        ],
+        "subgroupIds": [
+          "65"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "15",
+        "name": "RETENES",
+        "brandIds": [
+          "003"
+        ],
+        "subgroupIds": [
+          "53",
+          "54",
+          "55",
+          "56"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "16",
+        "name": "RODAMIENTOS",
+        "brandIds": [
+          "001",
+          "020"
+        ],
+        "subgroupIds": [
+          "66"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "17",
+        "name": "ROPA",
+        "brandIds": [],
+        "subgroupIds": [
+          "67"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "18",
+        "name": "SUSPENSIÓN",
+        "brandIds": [
+          "001",
+          "002",
+          "009",
+          "013",
+          "021",
+          "025"
+        ],
+        "subgroupIds": [
+          "57",
+          "58"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "0",
+        "name": "TODOS",
+        "brandIds": [],
+        "subgroupIds": [],
+        "parentId": null
+      },
+      {
+        "id": "19",
+        "name": "TRANSMISION",
+        "brandIds": [
+          "001",
+          "002",
+          "020",
+          "025"
+        ],
+        "subgroupIds": [
+          "01",
+          "02",
+          "03",
+          "21",
+          "T3"
+        ],
+        "parentId": null
+      },
+      {
+        "id": "20",
+        "name": "VARIOS",
+        "brandIds": [
+          "002"
+        ],
+        "subgroupIds": [
+          "68"
+        ],
+        "parentId": null
+      }
+    ],
+    "subgroups": [
+      {
+        "id": "59",
+        "name": "ACEITES",
+        "brandIds": [
+          "025",
+          "035"
+        ],
+        "groupId": "2"
+      },
+      {
+        "id": "57",
+        "name": "AMORTIGUADORES",
+        "brandIds": [
+          "009",
+          "018",
+          "019",
+          "020",
+          "021",
+          "027",
+          "029",
+          "047",
+          "051"
+        ],
+        "groupId": "18"
+      },
+      {
+        "id": "45",
+        "name": "ARBOL DE LEVAS",
+        "brandIds": [
+          "001",
+          "003",
+          "006",
+          "009",
+          "011",
+          "014",
+          "017",
+          "019",
+          "020",
+          "022",
+          "024",
+          "027",
+          "038",
+          "039",
+          "047"
+        ],
+        "groupId": "13"
+      },
+      {
+        "id": "58",
+        "name": "AROS",
+        "brandIds": [
+          "001",
+          "003",
+          "008",
+          "009",
+          "014",
+          "021",
+          "026",
+          "029",
+          null
+        ],
+        "groupId": "18"
+      },
+      {
+        "id": "24",
+        "name": "BARKBUSTERS",
+        "brandIds": [
+          "005",
+          "009",
+          "021"
+        ],
+        "groupId": "1"
+      },
+      {
+        "id": "46",
+        "name": "BUJIAS",
+        "brandIds": [
+          "001",
+          "003",
+          "016",
+          "017",
+          "024",
+          "033",
+          "047"
+        ],
+        "groupId": "13"
+      },
+      {
+        "id": "60",
+        "name": "CABLES",
+        "brandIds": [
+          "001",
+          "017",
+          "020",
+          "040",
+          "047",
+          "048"
+        ],
+        "groupId": "3"
+      },
+      {
+        "id": "21",
+        "name": "CADENAS",
+        "brandIds": [
+          "001",
+          "002",
+          "007",
+          "009",
+          "012",
+          "020",
+          "021",
+          "022",
+          "037",
+          "045",
+          "047",
+          "049"
+        ],
+        "groupId": "19"
+      },
+      {
+        "id": "50",
+        "name": "CADENILLAS DE DISTRIBUCIÓN",
+        "brandIds": [
+          "002",
+          "003",
+          "006",
+          "015",
+          "030",
+          "037",
+          "047"
+        ],
+        "groupId": "13"
+      },
+      {
+        "id": "22",
+        "name": "CASCOS",
+        "brandIds": [
+          "001",
+          "002",
+          "005",
+          "009",
+          "021",
+          "047"
+        ],
+        "groupId": "1"
+      },
+      {
+        "id": "T3",
+        "name": "CATALINAS",
+        "brandIds": [
+          "001",
+          "002",
+          "021",
+          null
+        ],
+        "groupId": "19"
+      },
+      {
+        "id": "61",
+        "name": "CAUCHOS",
+        "brandIds": [
+          "001",
+          "003",
+          "008",
+          "012",
+          "025",
+          "028",
+          "047"
+        ],
+        "groupId": "5"
+      },
+      {
+        "id": "47",
+        "name": "DISCOS DE EMBRAGUE",
+        "brandIds": [
+          "001",
+          "003",
+          "020",
+          "024",
+          "038",
+          "047"
+        ],
+        "groupId": "13"
+      },
+      {
+        "id": "42",
+        "name": "DISCOS DE FRENO",
+        "brandIds": [
+          "001",
+          "002",
+          "008",
+          "019",
+          "023",
+          "038",
+          "044",
+          "047",
+          "053"
+        ],
+        "groupId": "10"
+      },
+      {
+        "id": "62",
+        "name": "ELECTRICO",
+        "brandIds": [
+          "001",
+          "002",
+          "003",
+          "009",
+          "016",
+          "017",
+          "020",
+          "022",
+          "028",
+          "032",
+          "039",
+          "047"
+        ],
+        "groupId": "7"
+      },
+      {
+        "id": "33",
+        "name": "EMPAQUE SELLO TAPA VALVULA",
+        "brandIds": [
+          "001",
+          "003"
+        ],
+        "groupId": "8"
+      },
+      {
+        "id": "36",
+        "name": "EMPAQUES VARIOS",
+        "brandIds": [
+          "001",
+          "003"
+        ],
+        "groupId": "8"
+      },
+      {
+        "id": "34",
+        "name": "EMPAQUE TAPA DE BOBINA",
+        "brandIds": [
+          "003",
+          "011"
+        ],
+        "groupId": "8"
+      },
+      {
+        "id": "35",
+        "name": "EMPAQUE TAPA DE EMBRAGUE",
+        "brandIds": [
+          "003"
+        ],
+        "groupId": "8"
+      },
+      {
+        "id": "23",
+        "name": "ESCAPES",
+        "brandIds": [
+          "009",
+          "021"
+        ],
+        "groupId": "1"
+      },
+      {
+        "id": "25",
+        "name": "ESPEJOS",
+        "brandIds": [
+          "001",
+          "009",
+          "047"
+        ],
+        "groupId": "4"
+      },
+      {
+        "id": "39",
+        "name": "FILTROS DE ACEITE",
+        "brandIds": [
+          "001",
+          "002",
+          "003",
+          "011"
+        ],
+        "groupId": "9"
+      },
+      {
+        "id": "40",
+        "name": "FILTROS DE AIRE",
+        "brandIds": [
+          "001",
+          "002",
+          "003",
+          "020",
+          "021",
+          "043",
+          "047",
+          "049",
+          "052"
+        ],
+        "groupId": "9"
+      },
+      {
+        "id": "41",
+        "name": "FILTROS DE COMBUSTIBLE",
+        "brandIds": [
+          "001",
+          "003",
+          "011"
+        ],
+        "groupId": "9"
+      },
+      {
+        "id": "26",
+        "name": "FORROS DE ASIENTO",
+        "brandIds": [
+          "009",
+          "021"
+        ],
+        "groupId": "4"
+      },
+      {
+        "id": "63",
+        "name": "HERRAMIENTAS",
+        "brandIds": [
+          "002",
+          "005",
+          "009",
+          "019",
+          "020",
+          "023",
+          "047"
+        ],
+        "groupId": "11"
+      },
+      {
+        "id": "37",
+        "name": "KIT COMPLETO DE EMPAQUES",
+        "brandIds": [
+          "003",
+          "011"
+        ],
+        "groupId": "8"
+      },
+      {
+        "id": "51",
+        "name": "KIT DE BIELA",
+        "brandIds": [
+          "003"
+        ],
+        "groupId": "13"
+      },
+      {
+        "id": "49",
+        "name": "KIT DE CILINDRO",
+        "brandIds": [
+          "001",
+          "003",
+          "011",
+          "020",
+          "047"
+        ],
+        "groupId": "13"
+      },
+      {
+        "id": "52",
+        "name": "KIT DE PISTON",
+        "brandIds": [
+          "003",
+          "020"
+        ],
+        "groupId": "13"
+      },
+      {
+        "id": "53",
+        "name": "KIT DE RETENES",
+        "brandIds": [
+          "001",
+          "003",
+          "019"
+        ],
+        "groupId": "15"
+      },
+      {
+        "id": "03",
+        "name": "KITS CATALINA Y PIÑON",
+        "brandIds": [
+          "002"
+        ],
+        "groupId": "19"
+      },
+      {
+        "id": "01",
+        "name": "KITS DE TRACCIÓN",
+        "brandIds": [
+          "001",
+          "002",
+          "037"
+        ],
+        "groupId": "19"
+      },
+      {
+        "id": "38",
+        "name": "KIT SUPERIOR CILINDRO - CABEZOTE",
+        "brandIds": [
+          "002",
+          "003"
+        ],
+        "groupId": "8"
+      },
+      {
+        "id": "64",
+        "name": "LLANTAS",
+        "brandIds": [
+          "001",
+          "002"
+        ],
+        "groupId": "12"
+      },
+      {
+        "id": "29",
+        "name": "MANIGUETAS",
+        "brandIds": [
+          "001",
+          "004",
+          "006",
+          "021",
+          "047"
+        ],
+        "groupId": "6"
+      },
+      {
+        "id": "30",
+        "name": "MANUBRIOS",
+        "brandIds": [
+          "001",
+          "005",
+          "009",
+          "021",
+          "022",
+          "042",
+          "049"
+        ],
+        "groupId": "6"
+      },
+      {
+        "id": "43",
+        "name": "PASTILLAS DE FRENO",
+        "brandIds": [
+          "001",
+          "002",
+          "014"
+        ],
+        "groupId": "10"
+      },
+      {
+        "id": "27",
+        "name": "PEDALES Y ESTRIBOS",
+        "brandIds": [
+          "001",
+          "002",
+          "003",
+          "004",
+          "007",
+          "009",
+          "013",
+          "019",
+          "021",
+          "023",
+          "025",
+          "041",
+          "047",
+          "049"
+        ],
+        "groupId": "4"
+      },
+      {
+        "id": "65",
+        "name": "PERNOS Y MAS",
+        "brandIds": [
+          "001",
+          "003",
+          "009",
+          "019",
+          "021",
+          "023",
+          "027"
+        ],
+        "groupId": "14"
+      },
+      {
+        "id": "02",
+        "name": "PIÑONES",
+        "brandIds": [
+          "001",
+          "002",
+          "020"
+        ],
+        "groupId": "19"
+      },
+      {
+        "id": "31",
+        "name": "PISTAS DE DIRECCIÓN",
+        "brandIds": [
+          "002",
+          "019"
+        ],
+        "groupId": "6"
+      },
+      {
+        "id": "28",
+        "name": "PLASTICOS",
+        "brandIds": [
+          "005",
+          "009",
+          "010",
+          "013",
+          "021",
+          "022",
+          "036",
+          "047",
+          "049",
+          "050"
+        ],
+        "groupId": "4"
+      },
+      {
+        "id": "54",
+        "name": "RETENES DE SUSPENSION",
+        "brandIds": [
+          "001",
+          "003",
+          "011"
+        ],
+        "groupId": "15"
+      },
+      {
+        "id": "55",
+        "name": "RETENES VARIOS",
+        "brandIds": [
+          "003"
+        ],
+        "groupId": "15"
+      },
+      {
+        "id": "66",
+        "name": "RODAMIENTOS",
+        "brandIds": [
+          "001",
+          "002",
+          "019",
+          "020",
+          "047"
+        ],
+        "groupId": "16"
+      },
+      {
+        "id": "67",
+        "name": "ROPA",
+        "brandIds": [
+          "001",
+          "002",
+          "009",
+          "021",
+          "046"
+        ],
+        "groupId": "17"
+      },
+      {
+        "id": "56",
+        "name": "SELLOS DE VALVULA",
+        "brandIds": [
+          "003",
+          "038"
+        ],
+        "groupId": "15"
+      },
+      {
+        "id": "32",
+        "name": "TIMONES",
+        "brandIds": [
+          "001",
+          "009",
+          "012",
+          "029",
+          "047"
+        ],
+        "groupId": "6"
+      },
+      {
+        "id": "48",
+        "name": "VALVULAS ADMISION Y ESCAPE",
+        "brandIds": [
+          "001",
+          "003",
+          "011",
+          "019",
+          "047"
+        ],
+        "groupId": "13"
+      },
+      {
+        "id": "68",
+        "name": "VARIOS",
+        "brandIds": [],
+        "groupId": "20"
+      },
+      {
+        "id": "44",
+        "name": "ZAPATAS DE FRENO",
+        "brandIds": [
+          "001",
+          "002",
+          "014"
+        ],
+        "groupId": "10"
+      }
+    ]
+  }
+}

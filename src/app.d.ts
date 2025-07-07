@@ -8,6 +8,18 @@ declare namespace App {
 	// interface Platform {}
 }
 
+// 🆕 NAVEGACIÓN PERSISTENTE - Tipos para estado de filtros
+type FilterState = {
+	textToSearch: string | null;
+	selectedBrand: CatalogBrand | null;
+	selectedGroup: CatalogGroup | null;
+	selectedSubgroup: CatalogSubgroup | null;
+	currentPage: number;
+	totalProducts: number;
+	scrollPosition: number;
+	timestamp: number;
+}
+
 interface ImportMetaEnv {
 	VITE_URL_API: string,
 	VITE_API_KEY: string
@@ -177,6 +189,46 @@ type Group = {
 	id: string,
 	name: string,
 	groups: Group[],
+};
+
+type Brand = {
+	id: string,
+	name: string,
+};
+
+// Extended types for catalog relations
+type CatalogBrand = {
+	id: string,
+	name: string,
+	groupIds: string[],
+	subgroupIds: string[]
+};
+
+type CatalogGroup = {
+	id: string,
+	name: string,
+	brandIds: string[],
+	subgroupIds: string[],
+	parentId: string | null
+};
+
+type CatalogSubgroup = {
+	id: string,
+	name: string,
+	brandIds: string[],
+	groupId: string
+};
+
+type CatalogData = {
+	brands: CatalogBrand[],
+	groups: CatalogGroup[],
+	subgroups: CatalogSubgroup[]
+};
+
+type CatalogRelationsFile = {
+	lastUpdated: string,
+	version: string,
+	catalog: CatalogData
 };
 
 type Detail = {

@@ -1,5 +1,17 @@
 # Changelog
 
+## Version [2.1.3] - 2025-07-07
+### New features (Nuevo)
+### Improvements (Mejoras)
+- Optimización del tiempo de caché del catálogo reducido a 5 minutos para desarrollo más ágil
+- Filtro de Grupo configurado como solo lectura (disabled)
+- Mapeo del campo Subgrupo como parámetro "group" en el API remoto
+### Bug fixes (Corección de Errores)
+- Corrección del flujo de filtros: ahora el subgrupo seleccionado se envía correctamente al API como parámetro "group"
+### Tasks
+- Actualización de documentación de limpieza de caché
+- Configuración de persistencia de filtros con TTL de 5 minutos
+
 ## Version [2.1.2] - 2025-04-20
 ### New features (Nuevo)
 ### Improvements (Mejoras)

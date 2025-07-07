@@ -1,6 +1,10 @@
 <script>
 	import { currentUser, token, pf_lp } from "$lib/stores/store";
-	import { getUserFromToken, isValidToken } from "$lib/util/util";
+	import {
+		getUserFromToken,
+		isValidToken,
+		markNavigationFromShop,
+	} from "$lib/util/util";
 	import { createEventDispatcher } from "svelte";
 
 	let isAuth = false;
@@ -37,6 +41,17 @@
 		}
 	}
 
+	// 🆕 NAVEGACIÓN PERSISTENTE - Marcar navegación desde shop
+	function handleProfileNavigation() {
+		// Solo persistir si estamos en shop
+		if (
+			typeof window !== "undefined" &&
+			window.location.pathname === "/shop"
+		) {
+			markNavigationFromShop();
+		}
+	}
+
 	export let showLoginForm = () => {};
 </script>
 
@@ -46,9 +61,15 @@
 	<h3>Hola {getUserFromToken()}</h3>
 	<br />
 
-	<a href="/profile"> <i class="fas fa-arrow-right" /> Mi Perfil</a>
-	<a href="/address"> <i class="fas fa-arrow-right" /> Direcciones</a>
-	<a href="/updatePassword"> <i class="fas fa-arrow-right" /> Contraseña</a>
+	<a href="/profile" on:click={handleProfileNavigation}>
+		<i class="fas fa-arrow-right" /> Mi Perfil</a
+	>
+	<a href="/address" on:click={handleProfileNavigation}>
+		<i class="fas fa-arrow-right" /> Direcciones</a
+	>
+	<a href="/updatePassword" on:click={handleProfileNavigation}>
+		<i class="fas fa-arrow-right" /> Contraseña</a
+	>
 	<!--<a href={'/profile'}> <i class="fas fa-arrow-right" /> Historial de Compras</a>-->
 	<input type="submit" value="Cerrar Sesión" class="btn" />
 	<div id="error_message" class="text-danger">

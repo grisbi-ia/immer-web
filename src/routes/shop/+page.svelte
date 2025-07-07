@@ -2,90 +2,190 @@
 	import Header from "$lib/components/Header.svelte";
 	import MediaQuery from "$lib/util/MediaQuery.svelte";
 	import ProductGrid from "$lib/components/ProductGrid.svelte";
-	import Sidebar from "$lib/components/sidebar/Sidebar.svelte";
+	import CatalogFilters from "$lib/components/CatalogFilters.svelte";
 	import { Modals, closeModal } from "svelte-modals";
-	import { onMount } from "svelte";
-	//import Select from "svelte-select";
+	import { onMount, onDestroy } from "svelte";
 	import {
 		data,
 		currentPage,
 		textToSearch,
 		totalPages,
 		totalRecords,
-		groups,
-		//subgroups,
 		currentUser,
 		loading,
-		currentGroupName,
-		groupToSearch,
-		//message,
-		//selectedValue1,
+		// New catalog filters
+		selectedBrand,
+		selectedGroup,
+		selectedSubgroup,
+		// 🆕 NAVEGACIÓN PERSISTENTE
+		products,
+		hasMoreProducts,
+		catalogScrollPosition,
 	} from "$lib/stores/store";
 	import { animateScroll } from "svelte-scrollto-element";
 	import {
 		searchProducts,
+		searchProductsPersistent,
 		getUserFromToken,
 		reloadUserFromToken,
+		// 🆕 NAVEGACIÓN PERSISTENTE
+		restoreCatalogState,
+		saveCatalogScrollPosition,
+		clearCatalogState,
+		shouldRestoreCatalogState,
+		recentlyNavigatedFromShop,
+		markNavigationFromShop,
+		// 🆕 DEBUGGING
+		debugAppState,
+		testPaginationRestore,
+		checkCurrentState,
 	} from "$lib/util/util";
+	import { browser } from "$app/environment";
 
 	let discount = 0;
 	if ($currentUser && $currentUser.person?.discountRate > 0) {
 		discount = $currentUser.person.discountRate;
 	}
 
-	groups.set([]);
-	//subgroups.set([]);
+	// 🆕 NAVEGACIÓN PERSISTENTE - Control de restauración
+	let restoringState = false;
+	let scrollSaveInterval: NodeJS.Timeout;
+	let catalogInitialized = false;
 
-	let newGroups: Group[] = [];
-	let newSubgroups: Group[] = [];
 	onMount(async () => {
-		//fetch groups and subgroups
-		const fethcGroupResponse = await fetch("/api/shop/groups", {
-			method: "GET",
-		});
-		const responseGroup = await fethcGroupResponse.json();
+		if (browser) {
+			// Recargar usuario si está logueado
+			if (getUserFromToken()) {
+				await reloadUserFromToken();
+			}
 
-		groups.set(await responseGroup.objectList);
-		//newGroups = await responseGroup.objectList;
-		//fetch products
-		searchProducts(false);
+			// Configurar guardado automático de posición de scroll
+			scrollSaveInterval = setInterval(() => {
+				saveCatalogScrollPosition();
+			}, 2000);
 
-		if (getUserFromToken()) {
-			reloadUserFromToken();
+			// Determinar si debemos restaurar estado
+			const shouldRestore =
+				shouldRestoreCatalogState() || recentlyNavigatedFromShop();
+			restoringState = shouldRestore;
+
+			console.log("Shop page mounted:", {
+				shouldRestore,
+				recentNavigation: recentlyNavigatedFromShop(),
+				currentProductsCount: $products.length,
+			});
+
+			// 🆕 DEBUGGING - Hacer funciones disponibles globalmente en desarrollo
+			if (
+				typeof window !== "undefined" &&
+				window.location.hostname === "localhost"
+			) {
+				(window as any).debugAppState = debugAppState;
+				(window as any).testPaginationRestore = testPaginationRestore;
+				(window as any).checkCurrentState = checkCurrentState;
+				(window as any).restoreCatalogState = restoreCatalogState;
+				console.log(
+					"🔧 Debug functions available: debugAppState(), testPaginationRestore(), checkCurrentState(), restoreCatalogState()",
+				);
+			}
+
+			// Esperar un momento para que se cargue el catálogo en CatalogFilters
+			setTimeout(async () => {
+				console.log(
+					"🔧 About to start restoration logic, current state:",
+				);
+				console.log("shouldRestore:", shouldRestore);
+				console.log("currentPage before restoration:", $currentPage);
+				console.log(
+					"products length before restoration:",
+					$products.length,
+				);
+
+				if (shouldRestore) {
+					console.log("Attempting to restore catalog state...");
+					const restored = await restoreCatalogState();
+					console.log("Restoration result:", restored);
+					console.log(
+						"currentPage after restoration attempt:",
+						$currentPage,
+					);
+
+					if (!restored) {
+						// Si no se pudo restaurar, hacer búsqueda inicial
+						console.log(
+							"Could not restore, performing initial search",
+						);
+						await searchProductsPersistent(false);
+					}
+				} else {
+					// Nueva sesión o no hay estado que restaurar
+					console.log(
+						"No restoration needed, performing initial search",
+					);
+					await searchProductsPersistent(false);
+				}
+
+				console.log("🔧 Final state after all operations:");
+				console.log("currentPage:", $currentPage);
+				console.log("products length:", $products.length);
+
+				catalogInitialized = true;
+
+				// Esperar un poco más antes de quitar el indicador de restauración
+				setTimeout(() => {
+					restoringState = false;
+				}, 1500);
+			}, 500);
 		}
 	});
 
-	function search() {
-		animateScroll.scrollToTop();
-		groupToSearch.set("");
-		currentGroupName.set("");
-		searchProducts(false);
-	}
+	onDestroy(() => {
+		// Limpiar interval al destruir componente
+		if (scrollSaveInterval) {
+			clearInterval(scrollSaveInterval);
+		}
+
+		// Guardar posición final de scroll
+		if (browser) {
+			saveCatalogScrollPosition();
+		}
+	});
+
 	function loadMorePages() {
 		$currentPage++;
-		searchProducts(true);
-	}
-	/*
-	let currentGroupId = "";
-	let currentGroup: Group;
-	let currentSubgroupId = "";
-	let currentSubgroup: Group;
-
-	function fillSubgroups() {
-		const currentGroup = newGroups.find((o) => o.id === currentGroupId)!;
-		newSubgroups = currentGroup.groups;
+		searchProductsPersistent(false);
 	}
 
-	let items = ["One", "Two", "Three", "Four"];
-
-	let selectValueObject;
-
-	function onClick1(e) {
-		// This does not update the dropdown like I would expect it to.
-		$selectedValue1 = "Four";
+	// 🆕 NAVEGACIÓN PERSISTENTE - Función mejorada de cargar más
+	function loadMoreProducts() {
+		if (!$loading && $hasMoreProducts) {
+			$currentPage++;
+			searchProductsPersistent(true);
+		}
 	}
-	*/
+
+	// 🆕 NAVEGACIÓN PERSISTENTE - Detectar cuando se sale de la página
+	function handleBeforeUnload() {
+		saveCatalogScrollPosition();
+	}
+
+	// 🆕 NAVEGACIÓN PERSISTENTE - Detectar navegación con el browser
+	function handlePageShow(event: PageTransitionEvent) {
+		// Si la página se muestra desde caché del browser, restaurar estado
+		if (event.persisted) {
+			console.log(
+				"Page shown from browser cache, attempting state restore",
+			);
+			restoreCatalogState();
+		}
+	}
 </script>
+
+<!-- 🆕 NAVEGACIÓN PERSISTENTE - Event listeners para detectar salida de página -->
+<svelte:window
+	on:beforeunload={handleBeforeUnload}
+	on:pageshow={handlePageShow}
+/>
 
 <Header />
 <div class="heading">
@@ -97,53 +197,8 @@
 	<MediaQuery query="(min-width: 769px)" let:matches>
 		{#if matches}
 			<div class="sidebar">
-				<br />
-				<h3>Buscar</h3>
-				<form
-					on:submit|preventDefault={search}
-					class="search-form active"
-				>
-					<input
-						type="text"
-						placeholder="Buscar Repuesto..."
-						id="search-box"
-						bind:value={$textToSearch}
-					/>
-				</form>
-				<button class="btn" on:click={search}> Buscar </button>
-				<br />
-				<br />
-				<!--
-				<h3>Filtros</h3>
-				
-				<Select {newGroups} bind:justValue={$selectedValue1} />
-
-				<select
-					class="full-width"
-					name="select-group"
-					id="select-group"
-					bind:value={currentGroupId}
-					on:change={() => fillSubgroups()}
-				>
-					<option disabled>--Seleccionar Grupo--</option>
-					{#each newGroups as group}
-						<option value={group.id}>{group.name}</option>
-					{/each}
-				</select>
-				<select
-					class="full-width"
-					name="select-subgroup"
-					id="select-subgroup"
-					bind:value={currentSubgroupId}
-				>
-					<option disabled>--Seleccionar Subgrupo--</option>
-					{#each newSubgroups as subgroup}
-						<option value={subgroup.id}>{subgroup.name}</option>
-					{/each}
-				</select>
-				-->
-				<h3>Categorías</h3>
-				<Sidebar />
+				<!-- Catalog Filters Component (Name + Brand + Group + Subgroup) -->
+				<CatalogFilters />
 			</div>
 		{/if}
 	</MediaQuery>
@@ -151,11 +206,6 @@
 	{#key $data}
 		<div class="main">
 			<section class="product">
-				{#if $currentGroupName && $currentGroupName != ""}
-					<div class="div-center">
-						<h2>Categoría Actual: {$currentGroupName}</h2>
-					</div>
-				{/if}
 				{#if $loading}
 					<div class="loader"></div>
 					<div class="div-center">
@@ -169,8 +219,13 @@
 							Página: {$currentPage} / {$totalPages}
 						</h2>
 						<h2>
-							Items en pantalla: {$data.length} / {$totalRecords}
+							Items cargados: {$products.length} / {$totalRecords}
 						</h2>
+						{#if restoringState}
+							<p style="color: #4238ca; font-size: 1.2rem;">
+								📍 Estado de navegación restaurado
+							</p>
+						{/if}
 					</div>
 					{#if $loading}
 						<div class="div-center">
@@ -178,28 +233,19 @@
 							<br />
 							<h2>Cargando...</h2>
 						</div>
-					{:else if $currentPage < $totalPages}
+					{:else if $hasMoreProducts}
 						<div class="div-center">
 							<button
 								class="btn"
-								on:click={() => loadMorePages()}
+								on:click={() => loadMoreProducts()}
+								disabled={$loading}
 							>
-								Cargar más {$currentGroupName &&
-								$currentGroupName != ""
-									? $currentGroupName
-									: ""}...
+								{$loading ? "Cargando..." : "Cargar más"}
 							</button>
 						</div>
 					{:else}
 						<div class="div-center">
-							{#if $currentGroupName && $currentGroupName != ""}
-								<h2>
-									No hay más resultados para mostrar en la
-									categoría {$currentGroupName}.
-								</h2>
-							{:else}
-								<h2>No hay más resultados para mostrar.</h2>
-							{/if}
+							<h2>No hay más resultados para mostrar</h2>
 						</div>
 					{/if}
 				{:else if !$loading}
@@ -254,27 +300,15 @@
 
 	.sidebar {
 		font-size: 1.5rem;
-		padding: 0px;
+		padding: 1rem;
 		background-color: #fff;
 		width: 300px;
-		/*height: 25vh;*/
 		position: -webkit-sticky;
 		position: sticky;
-		/*top: 78px;*/
 		top: 8rem;
 		margin: 1em;
 		max-height: calc(100vh - 9rem);
 		overflow-y: auto;
-	}
-
-	.search-form input {
-		height: 100%;
-		width: 100%;
-		padding: 0 1.2rem;
-		font-size: 1.6rem;
-		color: #222;
-		text-transform: none;
-		border: 1px solid #4238ca;
 	}
 
 	.loader {
@@ -304,6 +338,13 @@
 		}
 		100% {
 			transform: rotate(360deg);
+		}
+	}
+
+	/* Responsive adjustments */
+	@media (max-width: 768px) {
+		.sidebar {
+			padding: 0.5rem;
 		}
 	}
 </style>
