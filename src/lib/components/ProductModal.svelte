@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from "svelte";
+	import { getBestImageSource } from "$lib/util/image-utils";
 	import { closeModal } from "svelte-modals";
 	import {
 		token,
@@ -58,8 +60,25 @@
 		} else return product.newPrice;
 	}
 
-	const handleImgError = (ev) => (ev.target.src = "image/product.png");
-	const handleImgBrandError = (ev) => (ev.target.src = "image/no-brand.png");
+	// Sistema WebP únicamente para modal
+	let modalImgSrc = `/image/products/${product.id}.webp`;
+
+	onMount(async () => {
+		// Configurar imagen WebP óptima solo en cliente
+		try {
+			modalImgSrc = await getBestImageSource(
+				product.id,
+				"/image/product.webp",
+			);
+		} catch (error) {
+			console.log("Error cargando imagen WebP en modal:", error);
+		}
+	});
+
+	const handleImgError = (ev: Event) =>
+		((ev.target as HTMLImageElement).src = "/image/product.webp");
+	const handleImgBrandError = (ev: Event) =>
+		((ev.target as HTMLImageElement).src = "/image/no-brand.png");
 </script>
 
 {#if isOpen}
@@ -70,14 +89,14 @@
 				<div style="padding-bottom: 2rem; padding-top: 2px;">
 					<img
 						style="width: auto; height: 4rem;"
-						src={`image/brand/${product.brandName}.png`}
+						src={`/image/brand/${product.brandName}.png`}
 						alt="Marca"
 						on:error={handleImgBrandError}
 					/>
 				</div>
 				<img
-					src={`image/products/${product.id}.png`}
-					alt=""
+					src={modalImgSrc}
+					alt="Producto"
 					on:error={handleImgError}
 				/>
 

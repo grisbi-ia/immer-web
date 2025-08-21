@@ -3,7 +3,8 @@
  * Manages the bidirectional relationships between Brands, Groups, and Subgroups
  */
 
-const CATALOG_URL = '/catalog-relations.json';
+// Allow override via environment variable for external sources
+const CATALOG_URL = import.meta.env.VITE_CATALOG_URL || '/catalog-relations.json';
 const CACHE_KEY = 'immer-catalog-relations';
 const CACHE_TTL = 1000 * 60 * 5; // 5 minutes - Reducido para desarrollo más ágil
 

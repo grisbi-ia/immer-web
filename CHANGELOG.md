@@ -1,5 +1,52 @@
 # Changelog
 
+## Version [2.1.6] - 2025-08-21
+### New features (Nuevo)
+- 🔧 Sistema de caché configurable mediante variables de entorno
+- 🎛️ Control total de habilitación/deshabilitación de caché con `VITE_CACHE_ENABLED`
+- ⏱️ Duraciones personalizables de caché general e imágenes por separado
+- 🔄 Generación automática de Service Worker con configuración dinámica
+- 🧹 Funciones avanzadas de limpieza de caché (Service Worker, navegador, catálogo)
+- 📊 Herramientas de debug completas para diagnóstico de caché
+- 🗑️ Función `clearAllCache()` para limpieza total con recarga automática
+- 🔄 Función `forceUpdateServiceWorker()` para actualización forzada de SW
+
+### Improvements (Mejoras)
+- ✨ Service Worker con versionado automático para prevenir cache obsoleto
+- 🚀 Scripts de build y dev actualizados para generación automática de SW
+- 📋 Archivo `.env.example` con todas las configuraciones de caché
+- 📖 Documentación completa en `CACHE_CONFIG.md` y `TROUBLESHOOTING_CACHE.md`
+- 🎯 Solución definitiva al problema de caché de imágenes de productos
+- ⚡ Configuraciones rápidas para desarrollo, testing y producción
+
+### Bug fixes (Corección de Errores)
+- 🐛 Eliminación de código duplicado en ProductCard.svelte
+- 🔧 Corrección de errores de compilación TypeScript
+- 🗂️ Limpieza de funciones obsoletas de cache-busting
+- 📦 Remoción completa del sistema de notificaciones de imágenes
+
+### Tasks
+- 🧪 Integración de funciones de debug en objeto global `window.debugImmerCatalog`
+- 📝 Creación de documentación técnica para troubleshooting
+- 🔄 Actualización de package.json con nuevos scripts
+- 🏷️ Variables de entorno organizadas y documentadas
+- 🎨 Simplificación de componentes UI (eliminación de botones de refresh)
+
+## Version [2.1.5] - 2025-08-20
+### New features (Nuevo)
+### Improvements (Mejoras)
+- Migración de dominio de `immer.ec` a `shop.immer.ec`
+- Actualización de Service Worker para soportar ambos dominios
+- Actualización de API Proxy para permitir tráfico desde ambos dominios
+- Mejora en preconnect DNS para optimización de carga
+### Bug fixes (Corección de Errores)
+- Corrección de referencias hardcodeadas al dominio anterior
+- Compatibilidad hacia atrás mantenida para `immer.ec`
+### Tasks
+- Revisión exhaustiva de código para detectar referencias de dominio
+- Actualización de configuraciones de seguridad en proxy
+- Optimización de DNS preconnect para mejor rendimiento
+
 ## Version [2.1.4] - 2025-08-20
 ### New features (Nuevo)
 ### Improvements (Mejoras)

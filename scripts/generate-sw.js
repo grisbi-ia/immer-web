@@ -1,14 +1,33 @@
-// Service Worker para Immer Web - Generado automáticamente
-// Cache habilitado: false
-// Cache version: disabled-1755750939505
-// Duración cache: 60 minutos
-// Duración cache imágenes: 30 minutos
-// Generado: 2025-08-21T04:35:39.507Z
+import fs from 'fs';
+import path from 'path';
 
-const CACHE_NAME = 'immer-cache-disabled-1755750939505';
-const CACHE_ENABLED = false;
-const CACHE_DURATION = 3600000; // milisegundos
-const IMAGE_CACHE_DURATION = 1800000; // milisegundos
+// Leer las variables de entorno
+const cacheEnabled = process.env.VITE_CACHE_ENABLED === 'true';
+const cacheDuration = parseInt(process.env.VITE_CACHE_DURATION) || (1 * 60 * 60 * 1000); // 1 hora por defecto
+const imageCacheDuration = parseInt(process.env.VITE_IMAGE_CACHE_DURATION) || (30 * 60 * 1000); // 30 minutos por defecto
+
+// Generar nombre de cache único cuando esté deshabilitado para forzar limpieza
+const cacheVersion = cacheEnabled ? 'v1' : `disabled-${Date.now()}`;
+
+console.log('🔧 Generando Service Worker con configuración:', {
+    cacheEnabled,
+    cacheVersion,
+    cacheDuration: `${cacheDuration / 1000 / 60} minutos`,
+    imageCacheDuration: `${imageCacheDuration / 1000 / 60} minutos`
+});
+
+// Plantilla del Service Worker
+const swTemplate = `// Service Worker para Immer Web - Generado automáticamente
+// Cache habilitado: ${cacheEnabled}
+// Cache version: ${cacheVersion}
+// Duración cache: ${cacheDuration / 1000 / 60} minutos
+// Duración cache imágenes: ${imageCacheDuration / 1000 / 60} minutos
+// Generado: ${new Date().toISOString()}
+
+const CACHE_NAME = 'immer-cache-${cacheVersion}';
+const CACHE_ENABLED = ${cacheEnabled};
+const CACHE_DURATION = ${cacheDuration}; // milisegundos
+const IMAGE_CACHE_DURATION = ${imageCacheDuration}; // milisegundos
 
 // Recursos a pre-cachear en la instalación
 const PRECACHE_URLS = [
@@ -247,3 +266,10 @@ self.addEventListener('message', event => {
     });
   }
 });
+`;
+
+// Escribir el archivo generado
+const outputPath = path.resolve('static/sw.js');
+fs.writeFileSync(outputPath, swTemplate, 'utf8');
+
+console.log('✅ Service Worker generado correctamente en:', outputPath);

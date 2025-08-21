@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from "svelte";
+	import { getBestImageSource } from "$lib/util/image-utils";
 	import { showAlert } from "$lib/util/util";
 	import {
 		currentUser,
@@ -10,16 +12,28 @@
 	import { openModal } from "svelte-modals";
 	import ProductModal from "./ProductModal.svelte";
 	import { goto } from "$app/navigation";
-	import { onMount } from "svelte";
 
 	export let product: Product;
 
-	onMount(() => {
+	// Sistema WebP únicamente con fallback a product.webp
+	let imgSrc = `/image/products/${product.id}.webp`; // Valor inicial WebP
+
+	onMount(async () => {
 		product.availibilityCountInCart = 0;
 		const productInCart = getProductInCart(product);
 		if (productInCart) {
 			product.availibilityCountInCart =
 				productInCart.availibilityCountInCart;
+		}
+
+		// Configurar imagen WebP óptima solo en cliente
+		try {
+			imgSrc = await getBestImageSource(
+				product.id,
+				"/image/product.webp",
+			);
+		} catch (error) {
+			console.log("Error cargando imagen WebP:", error);
 		}
 	});
 
@@ -69,15 +83,13 @@
 		return product.newPrice;
 	}
 
-	// Asegúrese de que las rutas estén correctas y sean absolutas
-	const handleImgError = (ev) => {
+	const handleImgError = (ev: Event) => {
 		console.log("Error cargando imagen de producto:", product.id);
-		ev.target.src = "/image/product.png";
+		(ev.target as HTMLImageElement).src = "/image/product.webp";
 	};
-
-	const handleImgBrandError = (ev) => {
+	const handleImgBrandError = (ev: Event) => {
 		console.log("Error cargando imagen de marca:", product.brandName);
-		ev.target.src = "/image/no-brand.png";
+		(ev.target as HTMLImageElement).src = "/image/no-brand.png";
 	};
 </script>
 
@@ -106,12 +118,11 @@
 	<div class="product-image-container">
 		<img
 			on:click={handleOpen}
-			src={`/image/products/${product.id}.png`}
+			src={imgSrc}
 			alt="Producto"
 			class="product-image"
 			loading="lazy"
 			decoding="async"
-			fetchpriority="low"
 			width="200"
 			height="200"
 			on:error={handleImgError}

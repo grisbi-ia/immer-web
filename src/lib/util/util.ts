@@ -803,7 +803,7 @@ export async function forceReloadCatalog() {
 
         // Fallback al método manual
         const timestamp = Date.now();
-        const catalogUrl = `/static/catalog-relations.json?v=${timestamp}`;
+        const catalogUrl = `/catalog-relations.json?v=${timestamp}`;
 
         console.log(`📥 Fallback: Fetching fresh catalog from: ${catalogUrl}`);
 
@@ -890,6 +890,175 @@ export function getCacheInfo() {
     };
 }
 
+// 🆕 FUNCIÓN PARA LIMPIAR SERVICE WORKER CACHE
+export async function clearServiceWorkerCache(): Promise<boolean> {
+    if (typeof window === 'undefined' || !('serviceWorker' in navigator)) {
+        console.log("❌ Service Worker no disponible");
+        return false;
+    }
+
+    try {
+        const registration = await navigator.serviceWorker.ready;
+
+        if (registration.active) {
+            // Enviar mensaje al Service Worker para limpiar cache
+            const messageChannel = new MessageChannel();
+
+            const promise = new Promise<boolean>((resolve) => {
+                messageChannel.port1.onmessage = (event) => {
+                    console.log("✅ Service Worker cache limpiado:", event.data);
+                    resolve(event.data.success || false);
+                };
+            });
+
+            registration.active.postMessage(
+                { type: 'CLEAR_CACHE' },
+                [messageChannel.port2]
+            );
+
+            return await promise;
+        } else {
+            console.log("❌ Service Worker no activo");
+            return false;
+        }
+    } catch (error) {
+        console.error("❌ Error limpiando Service Worker cache:", error);
+        return false;
+    }
+}
+
+// 🆕 FUNCIÓN PARA OBTENER INFORMACIÓN DEL SERVICE WORKER CACHE
+export function getServiceWorkerCacheInfo() {
+    if (typeof window === 'undefined') {
+        console.log("❌ Not in browser environment");
+        return null;
+    }
+
+    import('$lib/Env').then(({ CACHE_ENABLED, CACHE_DURATION, IMAGE_CACHE_DURATION }) => {
+        console.log("📊 Service Worker Cache Configuration:");
+        console.log(`- Cache habilitado: ${CACHE_ENABLED}`);
+        console.log(`- Duración cache general: ${CACHE_DURATION / 1000 / 60} minutos`);
+        console.log(`- Duración cache imágenes: ${IMAGE_CACHE_DURATION / 1000 / 60} minutos`);
+
+        if (!CACHE_ENABLED) {
+            console.log("⚠️ El cache está DESHABILITADO en las variables de entorno");
+        }
+
+        return {
+            cacheEnabled: CACHE_ENABLED,
+            cacheDuration: CACHE_DURATION,
+            imageCacheDuration: IMAGE_CACHE_DURATION
+        };
+    }).catch(error => {
+        console.error("❌ Error obteniendo configuración de cache:", error);
+    });
+}
+
+// 🆕 FUNCIÓN PARA FORZAR ACTUALIZACIÓN DEL SERVICE WORKER
+export async function forceUpdateServiceWorker(): Promise<boolean> {
+    if (typeof window === 'undefined' || !('serviceWorker' in navigator)) {
+        console.log("❌ Service Worker no disponible");
+        return false;
+    }
+
+    try {
+        const registration = await navigator.serviceWorker.ready;
+
+        // Desregistrar Service Worker actual
+        const unregistered = await registration.unregister();
+        console.log("🗑️ Service Worker desregistrado:", unregistered);
+
+        // Limpiar todos los caches
+        const cacheNames = await caches.keys();
+        await Promise.all(cacheNames.map(cacheName => {
+            console.log("🗑️ Limpiando cache:", cacheName);
+            return caches.delete(cacheName);
+        }));
+
+        // Registrar nuevo Service Worker
+        const newRegistration = await navigator.serviceWorker.register('/sw.js');
+        console.log("✅ Service Worker re-registrado:", newRegistration);
+
+        return true;
+    } catch (error) {
+        console.error("❌ Error actualizando Service Worker:", error);
+        return false;
+    }
+}
+
+// 🆕 FUNCIÓN PARA LIMPIAR TODO TIPO DE CACHE
+export async function clearAllCache(): Promise<void> {
+    if (typeof window === 'undefined') {
+        console.log("❌ Not in browser environment");
+        return;
+    }
+
+    console.log("🧹 Limpiando todos los caches...");
+
+    try {
+        // 1. Limpiar Service Worker cache
+        await clearServiceWorkerCache();
+        console.log("✅ Service Worker cache limpiado");
+
+        // 2. Limpiar cache del catálogo
+        localStorage.removeItem('immer-catalog-relations');
+        localStorage.removeItem('lastCatalogFilters');
+        console.log("✅ Cache del catálogo limpiado");
+
+        // 3. Limpiar todos los caches de navegador
+        if ('caches' in window) {
+            const cacheNames = await caches.keys();
+            await Promise.all(cacheNames.map(cacheName => {
+                console.log("🗑️ Limpiando cache:", cacheName);
+                return caches.delete(cacheName);
+            }));
+            console.log("✅ Todos los caches del navegador limpiados");
+        }
+
+        // 4. Forzar recarga sin cache
+        console.log("🔄 Forzando recarga sin cache...");
+        window.location.reload();
+
+    } catch (error) {
+        console.error("❌ Error limpiando caches:", error);
+    }
+}
+
+// 🆕 FUNCIÓN PARA OBTENER INFORMACIÓN COMPLETA DE CACHE
+export async function getFullCacheInfo(): Promise<void> {
+    if (typeof window === 'undefined') {
+        console.log("❌ Not in browser environment");
+        return;
+    }
+
+    console.log("📊 === INFORMACIÓN COMPLETA DE CACHE ===");
+
+    // Service Worker cache info
+    getServiceWorkerCacheInfo();
+
+    // Catalog cache info  
+    getCacheInfo();
+
+    // Browser caches
+    if ('caches' in window) {
+        const cacheNames = await caches.keys();
+        console.log("📦 Caches del navegador:", cacheNames);
+
+        for (const cacheName of cacheNames) {
+            const cache = await caches.open(cacheName);
+            const requests = await cache.keys();
+            console.log(`📦 Cache "${cacheName}": ${requests.length} elementos`);
+        }
+    }
+
+    // Service Worker status
+    if ('serviceWorker' in navigator) {
+        const registration = await navigator.serviceWorker.ready;
+        console.log("🔧 Service Worker activo:", !!registration.active);
+        console.log("🔧 Service Worker URL:", registration.active?.scriptURL);
+    }
+}
+
 // 🆕 NAVEGACIÓN PERSISTENTE - Exponer funciones de debug en global para pruebas en navegador
 if (typeof window !== 'undefined') {
     // @ts-ignore
@@ -903,10 +1072,20 @@ if (typeof window !== 'undefined') {
         clearCatalogState,
         clearCatalogCache,        // 🆕 Función para limpiar caché del catálogo
         forceReloadCatalog,      // 🆕 Función para forzar recarga del catálogo
-        getCacheInfo             // 🆕 Función para obtener información de configuración de caché
+        getCacheInfo,            // 🆕 Función para obtener información de configuración de caché
+        clearServiceWorkerCache, // 🆕 Función para limpiar Service Worker cache
+        getServiceWorkerCacheInfo, // 🆕 Función para obtener info de SW cache
+        forceUpdateServiceWorker, // 🆕 Función para forzar actualización de SW
+        clearAllCache,           // 🆕 Función para limpiar todo tipo de cache
+        getFullCacheInfo         // 🆕 Función para información completa de cache
     };
     console.log("🧪 Debug functions available in window.debugImmerCatalog");
     console.log("🧹 Use clearCatalogCache() to clear catalog cache");
     console.log("🔄 Use forceReloadCatalog() to force reload catalog data");
     console.log("ℹ️ Use getCacheInfo() to check current cache configuration");
+    console.log("🗑️ Use clearServiceWorkerCache() to clear Service Worker cache");
+    console.log("📊 Use getServiceWorkerCacheInfo() to check SW cache configuration");
+    console.log("🔄 Use forceUpdateServiceWorker() to force SW update");
+    console.log("🧹 Use clearAllCache() to clear ALL caches (forces page reload)");
+    console.log("📊 Use getFullCacheInfo() to see complete cache status");
 }

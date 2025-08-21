@@ -3,31 +3,31 @@ import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ url }) => {
   const targetUrl = url.searchParams.get('url');
-  
+
   if (!targetUrl) {
     return new Response('URL parameter is required', { status: 400 });
   }
-  
+
   try {
-    // Verificar que la URL es segura (solo permitimos immer.ec)
+    // Verificar que la URL es segura (solo permitimos dominios immer)
     const parsedUrl = new URL(targetUrl);
-    if (parsedUrl.hostname !== 'immer.ec') {
-      return new Response('Only immer.ec URLs are allowed', { status: 403 });
+    if (!['immer.ec', 'shop.immer.ec'].includes(parsedUrl.hostname)) {
+      return new Response('Only immer.ec and shop.immer.ec URLs are allowed', { status: 403 });
     }
-    
+
     // Realizar la solicitud al recurso externo
     const response = await fetch(targetUrl);
-    
+
     if (!response.ok) {
       return new Response(`Error fetching resource: ${response.statusText}`, {
         status: response.status
       });
     }
-    
+
     // Obtener el tipo de contenido y los bytes del recurso
     const contentType = response.headers.get('content-type') || 'application/octet-stream';
     const data = await response.arrayBuffer();
-    
+
     // Crear una nueva respuesta con los datos y el tipo de contenido adecuado
     return new Response(data, {
       headers: {

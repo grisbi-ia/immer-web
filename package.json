@@ -3,11 +3,12 @@
 	"version": "2.0",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
+		"dev": "node scripts/generate-sw.js && vite dev",
+		"build": "node scripts/generate-sw.js && vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"generate-sw": "node scripts/generate-sw.js"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-node": "^1.0.0-next.73",

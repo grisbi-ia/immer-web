@@ -22,7 +22,8 @@ type FilterState = {
 
 interface ImportMetaEnv {
 	VITE_URL_API: string,
-	VITE_API_KEY: string
+	VITE_API_KEY: string,
+	VITE_CATALOG_URL?: string // Optional: URL for catalog-relations.json (defaults to /catalog-relations.json)
 }
 
 type SharedAccount = {

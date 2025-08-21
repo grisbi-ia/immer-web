@@ -108,8 +108,8 @@
 		0,
 	);
 
-	const handleImgError = (ev) => (ev.target.src = "image/product.png");
-	const handleImgBrandError = (ev) => (ev.target.src = "image/no-brand.png");
+	const handleImgError = (ev) => (ev.target.src = "/image/product.webp");
+	const handleImgBrandError = (ev) => (ev.target.src = "/image/no-brand.png");
 </script>
 
 <Header />
@@ -154,7 +154,7 @@
 							<div>
 								<img
 									width="50"
-									src={`image/products/${item.id}.png`}
+									src={`/image/products/${item.id}.webp`}
 									alt=""
 									on:error={handleImgError}
 								/>
@@ -162,7 +162,7 @@
 							<div>
 								<img
 									width="50"
-									src={`image/brand/${item.brandName}.png`}
+									src={`/image/brand/${item.brandName}.png`}
 									alt="Marca"
 									on:error={handleImgBrandError}
 								/>
